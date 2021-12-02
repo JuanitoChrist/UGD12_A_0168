@@ -1,8 +1,11 @@
 package com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity;
 
+import static com.android.volley.Request.Method.PUT;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,12 +24,28 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.ApiInterface;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.PendaftaranApi;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.RegisterUserApi;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaModels;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaResponse;
+
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProfilePenggunaActivity extends AppCompatActivity {
 
@@ -39,14 +58,15 @@ public class ProfilePenggunaActivity extends AppCompatActivity {
     private ImageView ivGambar;
     private AutoCompleteTextView edJenisKelamin;
     private LinearLayout layoutLoading;
-    private ApiInterface apiInterface;
+//    private ApiInterface apiInterface;
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_pengguna);
 //        apiInterface = ApiClient.getClient().create(ApiInterface .class);
-        ivGambar = findViewById(R.id.iv_gambar);
+        queue = Volley.newRequestQueue(this);
         etNama = findViewById(R.id.et_nama);
         etUmur = findViewById(R.id.et_umur);
         etEmail = findViewById(R.id.et_email);
@@ -55,62 +75,62 @@ public class ProfilePenggunaActivity extends AppCompatActivity {
         ArrayAdapter<String> adapterJenisKelamin = new ArrayAdapter<>(this, R.layout.item_list_pengguna, JENIS_KELAMIN_LIST);
         edJenisKelamin.setAdapter(adapterJenisKelamin);
 
-        ivGambar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LayoutInflater layoutInflater = LayoutInflater.from(ProfilePenggunaActivity.this);
-                View selectMediaView = layoutInflater
-                        .inflate(R.layout.layout_select_media_pengguna, null);
-
-                final AlertDialog alertDialog = new AlertDialog
-                        .Builder(selectMediaView.getContext()).create();
-
-                Button btnKamera = selectMediaView.findViewById(R.id.btn_kamera);
-                Button btnGaleri = selectMediaView.findViewById(R.id.btn_galeri);
-
-                btnKamera.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        if (checkSelfPermission(Manifest.permission.CAMERA) ==
-                                PackageManager.PERMISSION_DENIED) {
-                            String[] permission = {Manifest.permission.CAMERA};
-                            requestPermissions(permission, PERMISSION_REQUEST_CAMERA);
-                        } else {
-                            // Membuka kamera
-                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, CAMERA_REQUEST);
-                        }
-
-                        alertDialog.dismiss();
-                    }
-                });
-
-                btnGaleri.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        // Membuka galeri
-                        Intent intent = new Intent(Intent.ACTION_PICK,
-                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(intent, GALLERY_PICTURE);
-
-                        alertDialog.dismiss();
-                    }
-                });
-
-                alertDialog.setView(selectMediaView);
-                alertDialog.show();
-            }
-        });
-
-        Button btnCancel = findViewById(R.id.btn_cancel);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        Button btnSave = findViewById(R.id.btn_save);
-        TextView tvTitle = findViewById(R.id.tv_title);
-        long id = getIntent().getLongExtra("id", -1);
+//        ivGambar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                LayoutInflater layoutInflater = LayoutInflater.from(ProfilePenggunaActivity.this);
+//                View selectMediaView = layoutInflater
+//                        .inflate(R.layout.layout_select_media_pengguna, null);
+//
+//                final AlertDialog alertDialog = new AlertDialog
+//                        .Builder(selectMediaView.getContext()).create();
+//
+//                Button btnKamera = selectMediaView.findViewById(R.id.btn_kamera);
+//                Button btnGaleri = selectMediaView.findViewById(R.id.btn_galeri);
+//
+//                btnKamera.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        if (checkSelfPermission(Manifest.permission.CAMERA) ==
+//                                PackageManager.PERMISSION_DENIED) {
+//                            String[] permission = {Manifest.permission.CAMERA};
+//                            requestPermissions(permission, PERMISSION_REQUEST_CAMERA);
+//                        } else {
+//                            // Membuka kamera
+//                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                            startActivityForResult(intent, CAMERA_REQUEST);
+//                        }
+//
+//                        alertDialog.dismiss();
+//                    }
+//                });
+//
+//                btnGaleri.setOnClickListener(new View.OnClickListener() {
+//                    public void onClick(View v) {
+//                        // Membuka galeri
+//                        Intent intent = new Intent(Intent.ACTION_PICK,
+//                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                        startActivityForResult(intent, GALLERY_PICTURE);
+//
+//                        alertDialog.dismiss();
+//                    }
+//                });
+//
+//                alertDialog.setView(selectMediaView);
+//                alertDialog.show();
+//            }
+//        });
+//
+//        Button btnCancel = findViewById(R.id.btn_cancel);
+//        btnCancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finish();
+//            }
+//        });
+//
+//        Button btnSave = findViewById(R.id.btn_save);
+//        TextView tvTitle = findViewById(R.id.tv_title);
+//        long id = getIntent().getLongExtra("id", -1);
 
 //        if (id == -1) {
 ////            tvTitle.setText(R.string.tambah_produk);
@@ -122,28 +142,28 @@ public class ProfilePenggunaActivity extends AppCompatActivity {
 //                }
 //            });
 //        } else {
-        tvTitle.setText("Edit Profile");
-//            getPenggunaById(id);
-
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                updateProfile(id);
-            }
-        });
-//        }
+//        tvTitle.setText("Edit Profile");
+////            getPenggunaById(id);
+//
+//        btnSave.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                updateProfile(id);
+//            }
+//        });
+////        }
     }
 
-    private String bitmapToBase64(Bitmap bitmap) {
-        // TODO: Tambahkan fungsi untuk mengkonversi bitmap dengan output Base64 string hasil
-        //  konversi. Gunakan fungsi ini saat menambah atau mengedit data produk.
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream .toByteArray();
-        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
-        return encoded;
-    }
+//    private String bitmapToBase64(Bitmap bitmap) {
+//        // TODO: Tambahkan fungsi untuk mengkonversi bitmap dengan output Base64 string hasil
+//        //  konversi. Gunakan fungsi ini saat menambah atau mengedit data produk.
+//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+//        byte[] byteArray = byteArrayOutputStream .toByteArray();
+//        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+//
+//        return encoded;
+//    }
 
     private void updateProfile(long id){
         setLoading(true);
@@ -152,38 +172,56 @@ public class ProfilePenggunaActivity extends AppCompatActivity {
                 etNama.getText().toString(),
                 Integer.parseInt(etUmur.getText().toString()),
                 edJenisKelamin.getText().toString(),
-                bitmapToBase64(((BitmapDrawable) ivGambar.getDrawable()).getBitmap()),
+//                bitmapToBase64(((BitmapDrawable) ivGambar.getDrawable()).getBitmap()),
                 etEmail.getText().toString()
         );
         //updateService
+        StringRequest stringRequest = new StringRequest(PUT, RegisterUserApi.UPDATE_URL + id, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+                PenggunaResponse penggunaResponse = gson.fromJson(response, PenggunaResponse.class);
+                Toast.makeText(ProfilePenggunaActivity.this, penggunaResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
+                setLoading(false);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                setLoading(false);
+                try {
+                    String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                    JSONObject errors = new JSONObject(responseBody);
+                    Toast.makeText(ProfilePenggunaActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(ProfilePenggunaActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Accept", "application/json");
+                return headers;
+            }
 
-//        Call<PenggunaResponse> call = apiInterface.updateProduk(id, pengguna);
-//
-//        call.enqueue(new Callback<PenggunaResponse>() {
-//            @Override
-//            public void onResponse(Call<PenggunaResponse> call, Response<PenggunaResponse> response) {
-//                if (response.isSuccessful()) {
-//                    Toast.makeText(ProfilPengguna.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-//                    Intent returnIntent = new Intent();
-//                    setResult(Activity.RESULT_OK, returnIntent);
-//                    finish();
-//                } else {
-//                    try {
-//                        JSONObject jsonObjectError = new JSONObject(response.errorBody().string());
-//                        Toast.makeText(ProfilPengguna.this, jsonObjectError.getString("message"), Toast.LENGTH_SHORT).show();
-//                    } catch (Exception e) {
-//                        Toast.makeText(ProfilPengguna.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//                setLoading(false);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<PenggunaResponse> call, Throwable t) {
-//                Toast.makeText(ProfilPengguna.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-//                setLoading(false);
-//            }
-//        });
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                Gson gson = new Gson();
+
+                String requestBody = gson.toJson(penggunaModels);
+                return requestBody.getBytes(StandardCharsets.UTF_8);
+            }
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+        };
+
+        queue.add(stringRequest);
     }
 
     private void setLoading(boolean isLoading) {

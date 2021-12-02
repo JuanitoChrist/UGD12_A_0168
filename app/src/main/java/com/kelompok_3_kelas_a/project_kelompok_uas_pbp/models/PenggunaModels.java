@@ -1,20 +1,24 @@
 package com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class PenggunaModels {
 
     private Long id;
     private String nama;
     private int umur;
     private String email;
-    private String jenisKelamin;
-    private String gambar;
 
-    public PenggunaModels(String nama, int umur, String email, String jenisKelamin, String gambar) {
+    @SerializedName("jenis_kelamin")
+    private String jenisKelamin;
+//    private String gambar;
+
+    public PenggunaModels(String nama, int umur, String email, String jenisKelamin) {
         this.nama = nama;
         this.umur = umur;
         this.email = email;
         this.jenisKelamin = jenisKelamin;
-        this.gambar = gambar;
+//        this.gambar = gambar;
     }
 
     public Long getId() {
@@ -57,11 +61,11 @@ public class PenggunaModels {
         this.jenisKelamin = jenisKelamin;
     }
 
-    public String getGambar() {
-        return gambar;
-    }
-
-    public void setGambar(String gambar) {
-        this.gambar = gambar;
-    }
+//    public String getGambar() {
+//        return gambar;
+//    }
+//
+//    public void setGambar(String gambar) {
+//        this.gambar = gambar;
+//    }
 }
