@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.kelompok_3_kelas_a.project_kelompok_uas_pbp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Project_uas_pbp">
+        <activity
+            android:name=".activity.ProfilePenggunaActivity"
+            android:exported="true" />
+        <activity
+            android:name=".HalamanObat"
+            android:exported="true" />
+        <activity
+            android:name=".HalamanPendaftaran"
+            android:exported="true" />
+        <activity
+            android:name=".HalamanUtama"
+            android:exported="true" />
+        <activity
+            android:name=".email.RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".email.LoginActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.BarChartActivityMain"
+            android:exported="true" />
+        <activity
+            android:name=".activity.QR_Scanner_Main"
+            android:exported="true" />
+        <activity
+            android:name=".hardware.QRScannerActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.AddEditTransaksiObatActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.TransaksiObatActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.ObatActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.AddEditPendaftaranActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.PendaftaranActivity"
+            android:exported="true" />
+
+        <provider
+            android:name="com.kelompok_3_kelas_a.project_kelompok_uas_pbp.library.GenericFileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+    </application>
+
+</manifest>

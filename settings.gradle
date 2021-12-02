@@ -1,0 +1,13 @@
+import org.gradle.api.initialization.resolve.RepositoriesMode
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven {url "https://jitpack.io"}// Warning: this repository is going to shut down soon
+    }
+}
+rootProject.name = "project_kelompok_uas_pbp"
+include ':app'

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="400dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/monument"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="100dp"
+                android:paddingTop="-100dp"
+                android:src="@drawable/hospital" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:text="RUMAH SAKIT"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="-80dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="10dp"
+                android:text="ATMAJAYA LAMPUNG"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="381dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="-389dp"
+            android:layout_marginTop="150dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/alamatrumahsakit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-10dp"
+                android:text="Jl. Putri Balau no 69, Kecamatan Lampung, Lampung Pintar "
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="400dp"
+            android:layout_height="440dp"
+            android:layout_marginLeft="-386dp"
+            android:layout_marginTop="200dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnObat"
+                android:layout_width="118dp"
+                android:layout_height="127dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/obat" />
+
+            <TextView
+                android:id="@+id/Obat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-100dp"
+                android:layout_marginTop="160dp"
+                android:text="Pembelian Obat "
+                android:textColor="@color/black"
+                android:textSize="11dp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btnDaftar"
+                android:layout_width="118dp"
+                android:layout_height="127dp"
+                android:layout_marginLeft="110dp"
+                android:layout_marginTop="21dp"
+                android:src="@drawable/nurse" />
+
+            <TextView
+                android:id="@+id/Pendaftaran"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="-91dp"
+                android:layout_marginTop="-52dp"
+                android:text="Pendaftaran"
+                android:textColor="@color/black"
+                android:textSize="11dp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btnJamKerja"
+                android:layout_width="118dp"
+                android:layout_height="127dp"
+                android:layout_marginLeft="-299dp"
+                android:layout_marginTop="200dp"
+                android:src="@drawable/watch" />
+
+            <TextView
+                android:id="@+id/JamKerja"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="-85dp"
+                android:layout_marginTop="120dp"
+                android:text="Jam Kerja"
+                android:textColor="@color/black"
+                android:textSize="11dp"
+                android:textStyle="bold" />
+
+
+            <ImageButton
+                android:id="@+id/btnScanQR"
+                android:layout_width="118dp"
+                android:layout_height="127dp"
+                android:layout_marginLeft="125dp"
+                android:layout_marginTop="200dp"
+                android:src="@drawable/scanqr" />
+
+            <TextView
+                android:id="@+id/ScanQR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="-81dp"
+                android:layout_marginTop="120dp"
+                android:text="Scan QR"
+                android:textColor="@color/black"
+                android:textSize="11dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_navigation_menu" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
