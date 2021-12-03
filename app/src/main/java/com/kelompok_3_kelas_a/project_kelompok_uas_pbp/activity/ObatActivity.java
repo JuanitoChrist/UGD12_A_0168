@@ -83,7 +83,6 @@ public class ObatActivity extends AppCompatActivity {
             }
         });
 
-        // set span count by orientation
         int orientation = getResources().getConfiguration().orientation;
         int spanCount;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -93,7 +92,6 @@ public class ObatActivity extends AppCompatActivity {
         }
 
         RecyclerView rv_obat = findViewById(R.id.rv_obat);
-
         rv_obat.setLayoutManager(new GridLayoutManager(this, spanCount));
         rv_obat.setAdapter(new ObatAdapter(obatModelsArrayList, this));
     }

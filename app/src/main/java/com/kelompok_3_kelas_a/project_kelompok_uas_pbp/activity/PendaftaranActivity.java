@@ -152,7 +152,6 @@ public class PendaftaranActivity extends AppCompatActivity {
     }
 
     public void deletePendaftaran(long id) {
-        // TODO: Tambahkan fungsi untuk menghapus data buku.
         setLoading(true);
 
         StringRequest stringRequest = new StringRequest(DELETE, PendaftaranApi.DELETE_URL + id, new Response.Listener<String>() {

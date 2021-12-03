@@ -83,6 +83,7 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
                 .load(obatDipilih.getGambarObat())
                 .centerCrop()
                 .into(iv_gambarTransaksiObat);
+
         tv_namaObatTransaksi.setText(obatDipilih.getNamaObat());
         tv_hargaObatTransaksi.setText(obatDipilih.getHargaObat().toString());
 
