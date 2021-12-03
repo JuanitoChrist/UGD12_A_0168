@@ -40,9 +40,9 @@ public class HalamanObat extends AppCompatActivity {
         btnBeliObat_HalamanObat = findViewById(R.id.btnBeliObat_HalamanObat);
         btnDaftarBeliObat_HalamanObat = findViewById(R.id.btnDaftarBeliObat_HalamanObat);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation); /*masih error*/
-        bottomNavigationView.setSelectedItemId(R.id.homeMenu);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation); /*masih error*/
+//        bottomNavigationView.setSelectedItemId(R.id.homeMenu);
+//        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
         btnBeliObat_HalamanObat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,21 +60,21 @@ public class HalamanObat extends AppCompatActivity {
         });
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener(){
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item){
-                    switch(item.getItemId()){
-                        case R.id.homeMenu:
-                            startActivity(new Intent(HalamanObat.this, HalamanUtama.class));
-                            finish();
-                            break;
-                        case R.id.profileMenu:
-                            startActivity(new Intent(HalamanObat.this, ProfilePenggunaActivity.class));
-                            finish();
-                            break;
-                    }
-                    return true;
-                }
-            };
+//    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+//            new BottomNavigationView.OnNavigationItemSelectedListener(){
+//                @Override
+//                public boolean onNavigationItemSelected(@NonNull MenuItem item){
+//                    switch(item.getItemId()){
+//                        case R.id.homeMenu:
+//                            startActivity(new Intent(HalamanObat.this, HalamanUtama.class));
+//                            finish();
+//                            break;
+//                        case R.id.profileMenu:
+//                            startActivity(new Intent(HalamanObat.this, ProfilePenggunaActivity.class));
+//                            finish();
+//                            break;
+//                    }
+//                    return true;
+//                }
+//            };
 }

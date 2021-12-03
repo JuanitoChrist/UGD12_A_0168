@@ -87,85 +87,92 @@ public class LoginActivity extends AppCompatActivity {
             etPassword.setError("Password cannot be empty");
             etPassword.requestFocus();
         }else{
-            RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-            mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    Toast.makeText(LoginActivity.this, "Step 300", Toast.LENGTH_SHORT).show();
-                    if (task.isSuccessful()){
-                        Toast.makeText(LoginActivity.this, "Step 200", Toast.LENGTH_SHORT).show();
-
-                        if(mAuth.getCurrentUser().isEmailVerified()){
-                            Toast.makeText(LoginActivity.this, "Step 100", Toast.LENGTH_SHORT).show();
-                            StringRequest stringRequest = new StringRequest(POST, LoginApi.ADD_URL, new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    try {
-                                        Toast.makeText(LoginActivity.this, "Step 0", Toast.LENGTH_SHORT).show();
-                                        JSONObject jsonObject = new JSONObject(response);
-                                        Toast.makeText(LoginActivity.this, "Step 1", Toast.LENGTH_SHORT).show();
-                                        JSONObject userObject = jsonObject.getJSONObject("user"); /*kemungkinan error*/
-                                        Toast.makeText(LoginActivity.this, "Step 2", Toast.LENGTH_SHORT).show();
-                                        saveId(userObject.getLong("id"));
+//            RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+//            Toast.makeText(LoginActivity.this, "Step 300", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(LoginActivity.this, email, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(LoginActivity.this, password, Toast.LENGTH_SHORT).show();
+//            StringRequest stringRequest = new StringRequest(POST, LoginApi.ADD_URL, new Response.Listener<String>() {
+//                @Override
+//                public void onResponse(String response) {
+//                    try {
+//                        Toast.makeText(LoginActivity.this, "Step 0", Toast.LENGTH_SHORT).show();
+//                        JSONObject jsonObject = new JSONObject(response);
+//                        Toast.makeText(LoginActivity.this, "Step 1", Toast.LENGTH_SHORT).show();
+//                        JSONObject userObject = jsonObject.getJSONObject("user"); /*kemungkinan error*/
+//                        saveId(userObject.getLong("id"));
+                        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                Toast.makeText(LoginActivity.this, "Step 300", Toast.LENGTH_SHORT).show();
+                                if (task.isSuccessful()){
+                                    Toast.makeText(LoginActivity.this, "Step 200", Toast.LENGTH_SHORT).show();
+                                    if(mAuth.getCurrentUser().isEmailVerified()){
+                                        Toast.makeText(LoginActivity.this, password, Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(LoginActivity.this, HalamanUtama.class));
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
+                                    }else{
+                                        Toast.makeText(LoginActivity.this, "Please Verified Your Email Address", Toast.LENGTH_SHORT).show();
                                     }
-//                                    Gson gson = new Gson();
-//                                    PenggunaResponse penggunaResponse = gson.fromJson(response, PenggunaResponse.class);
-//                                    Toast.makeText(LoginActivity.this, penggunaResponse.getMessage(), Toast.LENGTH_SHORT).show();
-//                                    Toast.makeText(LoginActivity.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
-//                                    penggunaResponse.getPenggunaList().get(0).getId();
-//                                    startActivity(new Intent(LoginActivity.this, HalamanUtama.class));
+                                }else{
+                                    Toast.makeText(LoginActivity.this, "Log in Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
-                            }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    try {
-                                        String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
-                                        JSONObject errors = new JSONObject(responseBody);
-                                        Toast.makeText(LoginActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
-                                    } catch (Exception e) {
-                                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            }){
-                                @Override
-                                public Map<String, String> getHeaders() throws AuthFailureError {
-                                    HashMap<String, String> headers = new HashMap<String, String>();
-                                    headers.put("Accept", "application/json");
-                                    return headers;
-                                }
+                            }
+                        });
 
-                                @Override
-                                protected Map<String, String> getParams() {
-                                    HashMap<String, String> params = new HashMap<>();
-                                    params.put("email", email);
-                                    params.put("password", password);
-                                    return params;
-                                }
-
-                                @Override
-                                public byte[] getBody() throws AuthFailureError {
-                                    Gson gson = new Gson();
-                                    String requestBody = gson.toJson(penggunaModels);
-                                    return requestBody.getBytes(StandardCharsets.UTF_8);
-                                }
-
-                                @Override
-                                public String getBodyContentType() {
-                                    return "application/json";
-                                }
-                            };
-                            queue.add(stringRequest);
-                        }else{
-                            Toast.makeText(LoginActivity.this, "Please Verified Your Email Address", Toast.LENGTH_SHORT).show();
-                        }
-                    }else{
-                        Toast.makeText(LoginActivity.this, "Log in Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }, new Response.ErrorListener() {
+//                @Override
+//                public void onErrorResponse(VolleyError error) {
+//                    try {
+//                        String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+//                        JSONObject errors = new JSONObject(responseBody);
+//                        Toast.makeText(LoginActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
+//                    } catch (Exception e) {
+//                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }){
+//                @Override
+//                public Map<String, String> getHeaders() throws AuthFailureError {
+//                    HashMap<String, String> headers = new HashMap<String, String>();
+//                    headers.put("Accept", "application/json");
+//                    return headers;
+//                }
+//
+//
+//
+//                @Override
+//                public byte[] getBody() throws AuthFailureError {
+//                    Gson gson = new Gson();
+//                    String requestBody = gson.toJson(penggunaModels);
+//                    return requestBody.getBytes(StandardCharsets.UTF_8);
+//                }
+//
+//                @Override
+//                public String getBodyContentType() {
+//                    return "application/json";
+//                }
+//            };
+//            queue.add(stringRequest);
+//            mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                @Override
+//                public void onComplete(@NonNull Task<AuthResult> task) {
+//                    Toast.makeText(LoginActivity.this, "Step 300", Toast.LENGTH_SHORT).show();
+//                    if (task.isSuccessful()){
+//                        Toast.makeText(LoginActivity.this, "Step 200", Toast.LENGTH_SHORT).show();
+//                        if(mAuth.getCurrentUser().isEmailVerified()){
+//                            Toast.makeText(LoginActivity.this, password, Toast.LENGTH_SHORT).show();
+//
+//                        }else{
+//                            Toast.makeText(LoginActivity.this, "Please Verified Your Email Address", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }else{
+//                        Toast.makeText(LoginActivity.this, "Log in Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            });
         }
     }
 

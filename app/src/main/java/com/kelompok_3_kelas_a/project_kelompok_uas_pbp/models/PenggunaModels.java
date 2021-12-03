@@ -16,7 +16,7 @@ public class PenggunaModels {
     private String jenisKelamin;
 //    private String gambar;
 
-    public PenggunaModels(String nama, int umur, String email, String jenisKelamin, String password) {
+    public PenggunaModels(String nama, int umur, String email, String password, String jenisKelamin) {
         this.nama = nama;
         this.umur = umur;
         this.email = email;
