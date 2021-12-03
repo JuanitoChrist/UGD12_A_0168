@@ -1,5 +1,6 @@
 package com.kelompok_3_kelas_a.project_kelompok_uas_pbp.email;
 
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.android.volley.Request.Method.POST;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.UnitTesting.ActivityUtil;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.UnitTesting.RegisterView;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.RegisterUserApi;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaModels;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaResponse;
@@ -39,7 +42,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements RegisterView {
 
     private static final String[] JENIS_KELAMIN_LIST = new String[]{"Laki-laki", "Perempuan"};
 
@@ -91,9 +94,12 @@ public class RegisterActivity extends AppCompatActivity {
         }else if(TextUtils.isEmpty(email)){
             etEmail.setError("Email cannot be empty");
             etEmail.requestFocus();
-        }else if(TextUtils.isEmpty(password)){
+        }else if(TextUtils.isEmpty(password)) {
             etPassword.setError("Password can't be empty");
             etPassword.requestFocus();
+        } else if(etUmur.getText().toString().isEmpty()) {
+            etUmur.setError("Umur can't be empty");
+            etUmur.requestFocus();
         }else{
             StringRequest stringRequest = new StringRequest(POST, RegisterUserApi.ADD_URL, new Response.Listener<String>() {
                 @Override
@@ -221,5 +227,76 @@ public class RegisterActivity extends AppCompatActivity {
 //                }
 //            });
         }
+    }
+
+    @Override
+    public String getNama() {
+        return etNama.getText().toString();
+    }
+
+    @Override
+    public void showNamaError(String message) {
+        etNama.setError(message);
+        etNama.requestFocus();
+    }
+
+    @Override
+    public Integer getUmur() {
+        return Integer.parseInt(etUmur.getText().toString());
+    }
+
+    @Override
+    public void showUmurError(String message) {
+        etUmur.setError(message);
+        etUmur.requestFocus();
+    }
+
+    @Override
+    public String getEmail() {
+        return etEmail.getText().toString();
+    }
+
+    @Override
+    public void showEmailError(String message) {
+        etEmail.setError(message);
+        etEmail.requestFocus();
+    }
+
+    @Override
+    public String getJenisKelamin() {
+        return edJenisKelamin.getText().toString();
+    }
+
+    @Override
+    public void showJenisKelaminError(String message) {
+        edJenisKelamin.setError(message);
+        edJenisKelamin.requestFocus();
+
+    }
+
+    @Override
+    public String getPassword() {
+        return etPassword.getText().toString();
+    }
+
+    @Override
+    public void showPasswordError(String message) {
+        etPassword.setError(message);
+        etPassword.requestFocus();
+    }
+
+    @Override
+    public void startRegisterActivity() {
+        new ActivityUtil(this).startRegisterActivity();
+    }
+
+    @Override
+    public void showProfilError(String message) {
+        Toast.makeText(this, message, LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showErrorResponse(String message) {
+        Toast.makeText(this, message, LENGTH_SHORT).show();
     }
 }

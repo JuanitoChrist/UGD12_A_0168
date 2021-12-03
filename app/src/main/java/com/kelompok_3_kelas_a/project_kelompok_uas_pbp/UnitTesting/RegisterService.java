@@ -34,51 +34,21 @@ import java.util.Map;
 public class RegisterService {
     //    TODO 6: silahkan salin code ProfilService
 
-    public void profil(final ProfilView view, Profil profil, final
-    ProfilCallback callback) {
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
-        Call<ProfilResponse> profilDAOCall =
-                apiService.createProfil(profil);
-        profilDAOCall.enqueue(new Callback<ProfilResponse>() {
+    public Boolean getValid(final RegisterView view, PenggunaModels penggunaModels, RegisterCallback callback,RegisterActivity activity, FirebaseAuth mAuth, RequestQueue queue ) {
+        final Boolean[] bool = new Boolean[1];
+        register(view, penggunaModels, new RegisterCallback() {
             @Override
-            public void onResponse(Call<ProfilResponse> call,
-                                   Response<ProfilResponse> response) {
-
-                if (response.body().getMessage().equalsIgnoreCase("berhasil daftar"
-                )) {
-                    callback.onSuccess(true,
-                            response.body().getProfilList().get(0));
-                } else {
-                    callback.onError();
-                    view.showProfilError(response.body().getMessage());
-                }
+            public void onSuccess(boolean value, PenggunaModels penggunaModels) {
+                bool[0] = true;
             }
 
             @Override
-            public void onFailure(Call<ProfilResponse> call, Throwable
-                    t) {
-                view.showErrorResponse(t.getMessage());
-                callback.onError();
+            public void onError() {
+                bool[0] = false;
             }
-        });
+        },activity, mAuth, queue);
+        return bool[0];
     }
-
-//    public Boolean getValid(final RegisterView view, PenggunaModels penggunaModels, RegisterCallback callback) {
-//        final Boolean[] bool = new Boolean[1];
-//        profil(view, penggunaModels, new RegisterCallback() {
-//            @Override
-//            public void onSuccess(boolean value, PenggunaModels penggunaModels) {
-//                bool[0] = true;
-//            }
-//
-//            @Override
-//            public void onError() {
-//                bool[0] = false;
-//            }
-//        });
-//        return bool[0];
-//    }
 
     public void register(final RegisterView view, PenggunaModels penggunaModels, final
     RegisterCallback callback, RegisterActivity activity, FirebaseAuth mAuth, RequestQueue queue) {
