@@ -81,9 +81,18 @@ public class RegisterActivity extends AppCompatActivity {
                 etEmail.getText().toString(),
                 etPassword.getText().toString(),
                 edJenisKelamin.getText().toString());
+        String nama = etNama.getText().toString();
+//        int umur = Integer.parseInt(etUmur.getText().toString());
         String email =  etEmail.getText().toString();
         String password = etPassword.getText().toString();
-        if(TextUtils.isEmpty(email)){
+
+        if (TextUtils.isEmpty(nama)){
+            etNama.setError("Name cannot be empty");
+            etNama.requestFocus();
+//        }else if (umur == 0) {
+//            etUmur.setError("Umur cannot be empty");
+//            etUmur.requestFocus();
+        }else if(TextUtils.isEmpty(email)){
             etEmail.setError("Email cannot be empty");
             etEmail.requestFocus();
         }else if(TextUtils.isEmpty(password)){

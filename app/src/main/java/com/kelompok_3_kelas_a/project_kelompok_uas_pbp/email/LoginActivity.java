@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Step 300", Toast.LENGTH_SHORT).show();
                     if (task.isSuccessful()){
                         Toast.makeText(LoginActivity.this, "Step 200", Toast.LENGTH_SHORT).show();
+
                         if(mAuth.getCurrentUser().isEmailVerified()){
                             Toast.makeText(LoginActivity.this, "Step 100", Toast.LENGTH_SHORT).show();
                             StringRequest stringRequest = new StringRequest(POST, LoginApi.ADD_URL, new Response.Listener<String>() {
@@ -133,9 +134,15 @@ public class LoginActivity extends AppCompatActivity {
                                 public Map<String, String> getHeaders() throws AuthFailureError {
                                     HashMap<String, String> headers = new HashMap<String, String>();
                                     headers.put("Accept", "application/json");
-                                    headers.put("email", email);
-                                    headers.put("password", password);
                                     return headers;
+                                }
+
+                                @Override
+                                protected Map<String, String> getParams() {
+                                    HashMap<String, String> params = new HashMap<>();
+                                    params.put("email", email);
+                                    params.put("password", password);
+                                    return params;
                                 }
 
                                 @Override
