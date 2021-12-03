@@ -85,13 +85,13 @@ public class PendaftaranAdapter extends RecyclerView.Adapter<PendaftaranAdapter.
                 MaterialAlertDialogBuilder materialAlertDialogBuilder =
                         new MaterialAlertDialogBuilder(context);
                 materialAlertDialogBuilder.setTitle("Konfirmasi")
-                        .setMessage("Apakah anda yakin ingin menghapus data produk ini?")
+                        .setMessage("Apakah anda yakin ingin menghapus pendaftaran ini?")
                         .setNegativeButton("Batal", null)
                         .setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 if (context instanceof PendaftaranActivity)
-                                    ((PendaftaranActivity) context).deleteProduk(pendaftaranModels.getId());
+                                    ((PendaftaranActivity) context).deletePendaftaran(pendaftaranModels.getId());
                             }
                         })
                         .show();

@@ -128,7 +128,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/btn_deletePendaftaran"
+                    android:id="@+id/btn_deleteTransaksiObat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"

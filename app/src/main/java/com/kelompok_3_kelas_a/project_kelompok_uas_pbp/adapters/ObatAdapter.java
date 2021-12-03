@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.AddEditTransaksiObatActivity;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.ObatActivity;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.PendaftaranActivity;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.databinding.ItemObatTampilBinding;
@@ -24,18 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ObatAdapter
-        extends RecyclerView.Adapter<ObatAdapter.ViewHolder>
-        implements Filterable
-{
+public class ObatAdapter extends RecyclerView.Adapter<ObatAdapter.ViewHolder>
+        implements Filterable {
 
     private List<ObatModels> obatModelsList, filteredObatList;
-    private Context context;
 
     public ObatAdapter(List<ObatModels> obatModelsList) {
         this.obatModelsList = obatModelsList;
         filteredObatList = new ArrayList<>(filteredObatList);
-        this.context = context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -67,7 +64,7 @@ public class ObatAdapter
                 .getCurrencyInstance(new Locale("in", "ID"));
         holder.binding.tvHargaObat.setText(rupiahFormat.format(obatModels.getHargaObat()));
 
-        Glide.with(context)
+        Glide.with(holder.binding.getRoot())
                 .load(obatModels.getGambarObat())
                 .placeholder(R.drawable.no_image)
                 .into(holder.binding.ivGambarObat);
@@ -75,12 +72,12 @@ public class ObatAdapter
         holder.binding.cvObat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(context, AddEditTransaksiObatActivity.class);
+                Intent i = new Intent(ObatAdapter., AddEditTransaksiObatActivity.class);
                 i.putExtra("id", obatModels.getIdObat());
 
-                if (context instanceof PendaftaranActivity)
-                    ((PendaftaranActivity) context).startActivityForResult(i,
-                            PendaftaranActivity.LAUNCH_ADD_ACTIVITY);
+                if (context instanceof ObatActivity)
+                    ((ObatActivity) context).startActivityForResult(i,
+                            ObatActivity.LAUNCH_ADD_ACTIVITY);
             }
         });
     }
@@ -89,8 +86,6 @@ public class ObatAdapter
     public int getItemCount() {
         return filteredObatList.size();
     }
-
-
 
     @Override
     public Filter getFilter() {

@@ -151,7 +151,7 @@ public class PendaftaranActivity extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
-    public void deleteProduk(long id) {
+    public void deletePendaftaran(long id) {
         // TODO: Tambahkan fungsi untuk menghapus data buku.
         setLoading(true);
 

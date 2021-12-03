@@ -24,6 +24,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.HalamanObat;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.HalamanPendaftaran;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.adapters.TransaksiObatAdapter;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.PendaftaranApi;
@@ -91,6 +93,12 @@ public class TransaksiObatActivity extends AppCompatActivity {
             getAllProduk();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(TransaksiObatActivity.this, HalamanObat.class));
+    }
+
     private void getAllProduk() {
         // TODO: Tambahkan fungsi untuk menampilkan seluruh data buku.
         sr_transaksiObat.setRefreshing(true);
@@ -129,7 +137,7 @@ public class TransaksiObatActivity extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
-    public void deleteProduk(long id) {
+    public void deleteTransaksiObat(long id) {
         setLoading(true);
 
         StringRequest stringRequest = new StringRequest(DELETE, PendaftaranApi.DELETE_URL + id, new Response.Listener<String>() {

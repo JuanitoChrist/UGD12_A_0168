@@ -1,12 +1,14 @@
 package com.kelompok_3_kelas_a.project_kelompok_uas_pbp.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.AddEditTransaksiObatActivity;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.PendaftaranActivity;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
@@ -43,6 +46,7 @@ public class TransaksiObatAdapter extends RecyclerView.Adapter<TransaksiObatAdap
         TextView tv_namaTransaksiObat, tv_hargaTransaksiObat, tv_totalBeliObat, tv_totalBiayaTransaksiObat;
         CardView cv_transaksiObat;
         ImageView iv_gambarTransaksiObat;
+        ImageButton btn_deleteTransaksiObat;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -53,6 +57,7 @@ public class TransaksiObatAdapter extends RecyclerView.Adapter<TransaksiObatAdap
             tv_totalBiayaTransaksiObat = itemView.findViewById(R.id.tv_totalBiayaTransaksiObat);
             iv_gambarTransaksiObat = itemView.findViewById(R.id.iv_gambarTransaksiObat);
             cv_transaksiObat = itemView.findViewById(R.id.cv_transaksiObat);
+            btn_deleteTransaksiObat = itemView.findViewById(R.id.btn_deleteTransaksiObat);
         }
     }
 
@@ -81,6 +86,25 @@ public class TransaksiObatAdapter extends RecyclerView.Adapter<TransaksiObatAdap
                 .load(transaksiObatModels.getObatModels().getGambarObat())
                 .placeholder(R.drawable.no_image)
                 .into(holder.iv_gambarTransaksiObat);
+
+        holder.btn_deleteTransaksiObat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MaterialAlertDialogBuilder materialAlertDialogBuilder =
+                        new MaterialAlertDialogBuilder(context);
+                materialAlertDialogBuilder.setTitle("Konfirmasi")
+                        .setMessage("Apakah anda yakin ingin menghapus transaksi obat ini?")
+                        .setNegativeButton("Batal", null)
+                        .setPositiveButton("Hapus", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (context instanceof TransaksiObatActivity)
+                                    ((TransaksiObatActivity) context).deleteTransaksiObat(transaksiObatModels.getIdTransaksiObat());
+                            }
+                        })
+                        .show();
+            }
+        });
 
         holder.cv_transaksiObat.setOnClickListener(new View.OnClickListener() {
             @Override
