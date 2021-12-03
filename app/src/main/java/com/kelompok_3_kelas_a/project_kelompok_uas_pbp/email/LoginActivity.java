@@ -23,10 +23,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.HalamanUtama;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
@@ -50,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
     private RequestQueue queue;
     private long id;
     private SharedPreferences sharedPreferences;
-    FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +54,6 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btn_register);
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
-        mAuth = FirebaseAuth.getInstance();
         sharedPreferences = getSharedPreferences("SharedPrefUser", Context.MODE_PRIVATE);
         id = sharedPreferences.getLong("id", 0);
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -87,90 +81,52 @@ public class LoginActivity extends AppCompatActivity {
             etPassword.setError("Password cannot be empty");
             etPassword.requestFocus();
         }else{
-//            RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-//            Toast.makeText(LoginActivity.this, "Step 300", Toast.LENGTH_SHORT).show();
-//            Toast.makeText(LoginActivity.this, email, Toast.LENGTH_SHORT).show();
-//            Toast.makeText(LoginActivity.this, password, Toast.LENGTH_SHORT).show();
-//            StringRequest stringRequest = new StringRequest(POST, LoginApi.ADD_URL, new Response.Listener<String>() {
-//                @Override
-//                public void onResponse(String response) {
-//                    try {
-//                        Toast.makeText(LoginActivity.this, "Step 0", Toast.LENGTH_SHORT).show();
-//                        JSONObject jsonObject = new JSONObject(response);
-//                        Toast.makeText(LoginActivity.this, "Step 1", Toast.LENGTH_SHORT).show();
+            RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+            StringRequest stringRequest = new StringRequest(POST, LoginApi.ADD_URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
 //                        JSONObject userObject = jsonObject.getJSONObject("user"); /*kemungkinan error*/
+                        startActivity(new Intent(LoginActivity.this, HalamanUtama.class));
 //                        saveId(userObject.getLong("id"));
-                        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(LoginActivity.this, "Step 300", Toast.LENGTH_SHORT).show();
-                                if (task.isSuccessful()){
-                                    Toast.makeText(LoginActivity.this, "Step 200", Toast.LENGTH_SHORT).show();
-                                    if(mAuth.getCurrentUser().isEmailVerified()){
-                                        Toast.makeText(LoginActivity.this, password, Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(LoginActivity.this, HalamanUtama.class));
-                                    }else{
-                                        Toast.makeText(LoginActivity.this, "Please Verified Your Email Address", Toast.LENGTH_SHORT).show();
-                                    }
-                                }else{
-                                    Toast.makeText(LoginActivity.this, "Log in Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    try {
+                        String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                        JSONObject errors = new JSONObject(responseBody);
+                        Toast.makeText(LoginActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Accept", "application/json");
+                    return headers;
+                }
 
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    try {
-//                        String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
-//                        JSONObject errors = new JSONObject(responseBody);
-//                        Toast.makeText(LoginActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
-//                    } catch (Exception e) {
-//                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            }){
-//                @Override
-//                public Map<String, String> getHeaders() throws AuthFailureError {
-//                    HashMap<String, String> headers = new HashMap<String, String>();
-//                    headers.put("Accept", "application/json");
-//                    return headers;
-//                }
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    Gson gson = new Gson();
+                    String requestBody = gson.toJson(penggunaModels);
+                    return requestBody.getBytes(StandardCharsets.UTF_8);
+                }
+
+                @Override
+                public String getBodyContentType() {
+                    return "application/json";
+                }
+            };
+            queue.add(stringRequest);
 //
-//                @Override
-//                public byte[] getBody() throws AuthFailureError {
-//                    Gson gson = new Gson();
-//                    String requestBody = gson.toJson(penggunaModels);
-//                    return requestBody.getBytes(StandardCharsets.UTF_8);
-//                }
-//
-//                @Override
-//                public String getBodyContentType() {
-//                    return "application/json";
-//                }
-//            };
-//            queue.add(stringRequest);
-//            mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                @Override
-//                public void onComplete(@NonNull Task<AuthResult> task) {
-//                    Toast.makeText(LoginActivity.this, "Step 300", Toast.LENGTH_SHORT).show();
-//                    if (task.isSuccessful()){
-//                        Toast.makeText(LoginActivity.this, "Step 200", Toast.LENGTH_SHORT).show();
-//                        if(mAuth.getCurrentUser().isEmailVerified()){
-//                            Toast.makeText(LoginActivity.this, password, Toast.LENGTH_SHORT).show();
-//
-//                        }else{
-//                            Toast.makeText(LoginActivity.this, "Please Verified Your Email Address", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }else{
-//                        Toast.makeText(LoginActivity.this, "Log in Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            });
         }
     }
 
