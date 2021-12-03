@@ -141,8 +141,6 @@ public class LoginActivity extends AppCompatActivity {
 //                    return headers;
 //                }
 //
-//
-//
 //                @Override
 //                public byte[] getBody() throws AuthFailureError {
 //                    Gson gson = new Gson();

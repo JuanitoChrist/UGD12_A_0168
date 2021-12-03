@@ -29,10 +29,12 @@ public class ObatAdapter extends RecyclerView.Adapter<ObatAdapter.ViewHolder>
         implements Filterable {
 
     private List<ObatModels> obatModelsList, filteredObatList;
+    private Context context;
 
-    public ObatAdapter(List<ObatModels> obatModelsList) {
+    public ObatAdapter(List<ObatModels> obatModelsList, Context context) {
         this.obatModelsList = obatModelsList;
-        filteredObatList = new ArrayList<>(filteredObatList);
+        filteredObatList = new ArrayList<>(obatModelsList);
+        this.context = context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -72,7 +74,7 @@ public class ObatAdapter extends RecyclerView.Adapter<ObatAdapter.ViewHolder>
         holder.binding.cvObat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ObatAdapter., AddEditTransaksiObatActivity.class);
+                Intent i = new Intent(context, AddEditTransaksiObatActivity.class);
                 i.putExtra("id", obatModels.getIdObat());
 
                 if (context instanceof ObatActivity)
@@ -84,7 +86,7 @@ public class ObatAdapter extends RecyclerView.Adapter<ObatAdapter.ViewHolder>
 
     @Override
     public int getItemCount() {
-        return filteredObatList.size();
+        return obatModelsList.size();
     }
 
     @Override

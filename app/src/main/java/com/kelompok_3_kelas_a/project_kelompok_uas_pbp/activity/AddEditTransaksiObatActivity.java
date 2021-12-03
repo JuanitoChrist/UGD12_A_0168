@@ -60,7 +60,6 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_transaksi_obat);
         setTitle(" ");
-        setObatDipilih();
 
         obatModelsArrayList = new ObatList().ObatModels;
         tampungIdObat = getIntent().getIntExtra("id", 0);
@@ -79,6 +78,14 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
 
         layoutLoading = findViewById(R.id.layout_loading);
 
+        setObatDipilih();
+        Glide.with(AddEditTransaksiObatActivity.this)
+                .load(obatDipilih.getGambarObat())
+                .centerCrop()
+                .into(iv_gambarTransaksiObat);
+        tv_namaObatTransaksi.setText(obatDipilih.getNamaObat());
+        tv_hargaObatTransaksi.setText(obatDipilih.getHargaObat().toString());
+
         Button btnCancel = findViewById(R.id.btn_cancelTransaksiObat);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +95,7 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
         });
 
         Button btnSave = findViewById(R.id.btn_saveTransaksiObat);
-        TextView tvTitle = findViewById(R.id.tv_title);
+        TextView tvTitle = findViewById(R.id.tv_titleTransaksiObat);
         long id = getIntent().getLongExtra("id", -1);
 
         if (id == -1) {
@@ -114,7 +121,7 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
     }
 
     private void setObatDipilih(){
-        for(int i=0; i<obatModelsArrayList.toArray().length; i++){
+        for(int i=0; i<obatModelsArrayList.size(); i++){
             if(obatModelsArrayList.get(i).getIdObat()==tampungIdObat){
                 obatDipilih = obatModelsArrayList.get(i);
             }
@@ -132,19 +139,11 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
                 TransaksiObatResponse transaksiObatResponse = gson.fromJson(response, TransaksiObatResponse.class);
                 TransaksiObatModels transaksiObatModels = transaksiObatResponse.getTransaksiObatModelsList().get(0);
 
-                tv_namaObatTransaksi.setText(obatDipilih.getNamaObat());
-                tv_hargaObatTransaksi.setText(obatDipilih.getHargaObat().toString());
-
                 et_namaPembeliTransaksi.setText(transaksiObatModels.getNamaPembeli());
                 et_nomorHP_pembeli.setText(transaksiObatModels.getNomorHpPembeli());
                 et_alamatPembeli.setText(transaksiObatModels.getAlamatPembeli());
                 et_umurPembeli.setText(transaksiObatModels.getUmurPembeli());
                 et_jumlahBeliTransaksi.setText(transaksiObatModels.getJumlahBeli().toString());
-
-                Glide.with(AddEditTransaksiObatActivity.this)
-                        .load(obatDipilih.getGambarObat())
-                        .centerCrop()
-                        .into(iv_gambarTransaksiObat);
 
                 Toast.makeText(AddEditTransaksiObatActivity.this, transaksiObatResponse.getMessage(), Toast.LENGTH_SHORT).show();
 

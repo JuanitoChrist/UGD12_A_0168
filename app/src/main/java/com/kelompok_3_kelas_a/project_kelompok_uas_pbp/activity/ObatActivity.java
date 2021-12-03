@@ -83,10 +83,19 @@ public class ObatActivity extends AppCompatActivity {
             }
         });
 
+        // set span count by orientation
+        int orientation = getResources().getConfiguration().orientation;
+        int spanCount;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            spanCount = 2;
+        } else {
+            spanCount = 4;
+        }
+
         RecyclerView rv_obat = findViewById(R.id.rv_obat);
 
-        rv_obat.setLayoutManager(new LinearLayoutManager(this.getBaseContext(),LinearLayoutManager.VERTICAL,false));
-        rv_obat.setAdapter(new ObatAdapter(obatModelsArrayList));
+        rv_obat.setLayoutManager(new GridLayoutManager(this, spanCount));
+        rv_obat.setAdapter(new ObatAdapter(obatModelsArrayList, this));
     }
 
     // Fungsi ini digunakan menampilkan layout loading

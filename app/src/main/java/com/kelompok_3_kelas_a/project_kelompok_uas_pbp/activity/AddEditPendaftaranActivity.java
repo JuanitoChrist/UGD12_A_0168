@@ -79,7 +79,7 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
         });
 
         Button btnSave = findViewById(R.id.btn_savePendaftaran);
-        TextView tvTitle = findViewById(R.id.tv_title);
+        TextView tvTitle = findViewById(R.id.tv_title_pendaftaran);
         long id = getIntent().getLongExtra("id", -1);
 
         if (id == -1) {
