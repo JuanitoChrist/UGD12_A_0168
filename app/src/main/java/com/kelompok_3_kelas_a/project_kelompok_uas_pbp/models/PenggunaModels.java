@@ -5,20 +5,33 @@ import com.google.gson.annotations.SerializedName;
 public class PenggunaModels {
 
     private Long id;
+    @SerializedName("name")
     private String nama;
     private int umur;
+    @SerializedName("email")
     private String email;
-
-    @SerializedName("jenis_kelamin")
+    @SerializedName("password")
+    private String password;
+    @SerializedName("jenisKelamin")
     private String jenisKelamin;
 //    private String gambar;
 
-    public PenggunaModels(String nama, int umur, String email, String jenisKelamin) {
+    public PenggunaModels(String nama, int umur, String email, String jenisKelamin, String password) {
         this.nama = nama;
         this.umur = umur;
         this.email = email;
         this.jenisKelamin = jenisKelamin;
+        this.setPassword(password);
 //        this.gambar = gambar;
+    }
+
+    public PenggunaModels(String email, String password){
+        this.email = email;
+        this.password = password;
+    }
+
+    public PenggunaModels(long id){
+        this.id = id;
     }
 
     public Long getId() {
@@ -59,6 +72,14 @@ public class PenggunaModels {
 
     public void setJenisKelamin(String jenisKelamin) {
         this.jenisKelamin = jenisKelamin;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 //    public String getGambar() {

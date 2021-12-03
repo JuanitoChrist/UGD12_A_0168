@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -78,6 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
                 etNama.getText().toString(),
                 Integer.parseInt(etUmur.getText().toString()),
                 etEmail.getText().toString(),
+                etPassword.getText().toString(),
                 edJenisKelamin.getText().toString());
         String email =  etEmail.getText().toString();
         String password = etPassword.getText().toString();
@@ -88,67 +90,131 @@ public class RegisterActivity extends AppCompatActivity {
             etPassword.setError("Password can't be empty");
             etPassword.requestFocus();
         }else{
-            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            StringRequest stringRequest = new StringRequest(POST, RegisterUserApi.ADD_URL, new Response.Listener<String>() {
                 @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
-                                StringRequest stringRequest = new StringRequest(POST, RegisterUserApi.ADD_URL, new Response.Listener<String>() {
-                                    @Override
-                                    public void onResponse(String response) {
-                                        Gson gson = new Gson();
-                         /* Deserialiasai data dari response JSON dari API
-                         menjadi java object MahasiswaResponse menggunakan Gson */
-                                        PenggunaResponse mahasiswaResponse = gson.fromJson(response, PenggunaResponse.class);
-//                                        Toast.makeText(RegisterActivity.this, mahasiswaResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                                        Toast.makeText(RegisterActivity.this, "User registered successfully, Please Check Your Email",
-                                                Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                                    }
-                                }, new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-                                        try {
-                                            String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
-                                            JSONObject errors = new JSONObject(responseBody);
-                                            Toast.makeText(RegisterActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
-                                        } catch (Exception e) {
-                                            Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                }){
-                                    // Menambahkan header pada request
-                                    @Override
-                                    public Map<String, String> getHeaders() throws AuthFailureError {
-                                        HashMap<String, String> headers = new HashMap<String, String>();
-                                        headers.put("Accept", "application/json");
-                                        return headers;
-                                    }
-
-                                    @Override
-                                    public byte[] getBody() throws AuthFailureError {
-                                        Gson gson = new Gson();
-
-                                        String requestBody = gson.toJson(penggunaModels);
-                                        return requestBody.getBytes(StandardCharsets.UTF_8);
-                                    }
-
-                                    @Override
-                                    public String getBodyContentType() {
-                                        return "application/json";
-                                    }
-                                };
-                                // Menambahkan request ke request queue
-                                    queue.add(stringRequest);
-                            }else{
-                                Toast.makeText(RegisterActivity.this, "Registration Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                public void onResponse(String response) {
+                    Gson gson = new Gson();
+                    PenggunaResponse penggunaResponse = gson.fromJson(response, PenggunaResponse.class);
+                    Toast.makeText(RegisterActivity.this, penggunaResponse.getMessage(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RegisterActivity.this, "User registered successfully, Please Check Your Email",
+//                            Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                    mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(RegisterActivity.this, "User registered successfully, Please Check Your Email",
+                                            Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                                } else {
+                                    Toast.makeText(RegisterActivity.this, "Registration Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        };
-                    });
+                        });
+                    };
+                });
                 }
-            });
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    try {
+                        String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                        JSONObject errors = new JSONObject(responseBody);
+                        Toast.makeText(RegisterActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }){
+                // Menambahkan header pada request
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<String, String>();
+                    headers.put("Accept", "application/json");
+                    return headers;
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    Gson gson = new Gson();
+
+                    String requestBody = gson.toJson(penggunaModels);
+                    return requestBody.getBytes(StandardCharsets.UTF_8);
+                }
+
+                @Override
+                public String getBodyContentType() {
+                    return "application/json";
+                }
+            };
+            // Menambahkan request ke request queue
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    0,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                queue.add(stringRequest);
+//            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                @Override
+//                public void onComplete(@NonNull Task<AuthResult> task) {
+//                    mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            if (task.isSuccessful()){
+//                                StringRequest stringRequest = new StringRequest(POST, RegisterUserApi.ADD_URL, new Response.Listener<String>() {
+//                                    @Override
+//                                    public void onResponse(String response) {
+//                                        Gson gson = new Gson();
+//                                        PenggunaResponse mahasiswaResponse = gson.fromJson(response, PenggunaResponse.class);
+////                                        Toast.makeText(RegisterActivity.this, mahasiswaResponse.getMessage(), Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(RegisterActivity.this, "User registered successfully, Please Check Your Email",
+//                                                Toast.LENGTH_SHORT).show();
+//                                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+//                                    }
+//                                }, new Response.ErrorListener() {
+//                                    @Override
+//                                    public void onErrorResponse(VolleyError error) {
+//                                        try {
+//                                            String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+//                                            JSONObject errors = new JSONObject(responseBody);
+//                                            Toast.makeText(RegisterActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
+//                                        } catch (Exception e) {
+//                                            Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    }
+//                                }){
+//                                    // Menambahkan header pada request
+//                                    @Override
+//                                    public Map<String, String> getHeaders() throws AuthFailureError {
+//                                        HashMap<String, String> headers = new HashMap<String, String>();
+//                                        headers.put("Accept", "application/json");
+//                                        return headers;
+//                                    }
+//
+//                                    @Override
+//                                    public byte[] getBody() throws AuthFailureError {
+//                                        Gson gson = new Gson();
+//
+//                                        String requestBody = gson.toJson(penggunaModels);
+//                                        return requestBody.getBytes(StandardCharsets.UTF_8);
+//                                    }
+//
+//                                    @Override
+//                                    public String getBodyContentType() {
+//                                        return "application/json";
+//                                    }
+//                                };
+//                                // Menambahkan request ke request queue
+//                                    queue.add(stringRequest);
+//                            }else{
+//                                Toast.makeText(RegisterActivity.this, "Registration Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                            }
+//                        };
+//                    });
+//                }
+//            });
         }
     }
 }
