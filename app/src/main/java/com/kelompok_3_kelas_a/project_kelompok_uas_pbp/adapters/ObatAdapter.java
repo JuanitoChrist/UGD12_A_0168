@@ -57,14 +57,19 @@ public class ObatAdapter extends RecyclerView.Adapter<ObatAdapter.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull ObatAdapter.ViewHolder holder, int position) {
-        ObatModels obatModels = filteredObatList.get(position);
+//        ObatModels obatModels = filteredObatList.get(position);
+        ObatModels obatModels = obatModelsList.get(position);
+
+//        holder.binding.tvNamaObat.setText(obatModels.getNamaObat());
+//        holder.binding.tvStokObat.setText("Stok " + obatModels.getStokObat());
+//
+//        DecimalFormat rupiahFormat = (DecimalFormat) DecimalFormat
+//                .getCurrencyInstance(new Locale("in", "ID"));
+//        holder.binding.tvHargaObat.setText(rupiahFormat.format(obatModels.getHargaObat()));
 
         holder.binding.tvNamaObat.setText(obatModels.getNamaObat());
-        holder.binding.tvStokObat.setText("Stok " + obatModels.getStokObat());
-
-        DecimalFormat rupiahFormat = (DecimalFormat) DecimalFormat
-                .getCurrencyInstance(new Locale("in", "ID"));
-        holder.binding.tvHargaObat.setText(rupiahFormat.format(obatModels.getHargaObat()));
+        holder.binding.tvStokObat.setText(String.valueOf(obatModels.getStokObat()));
+        holder.binding.tvHargaObat.setText(String.valueOf(obatModels.getHargaObat()));
 
         Glide.with(holder.binding.getRoot())
                 .load(obatModels.getGambarObat())
