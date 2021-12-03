@@ -64,21 +64,21 @@ public class RegisterService {
         });
     }
 
-    public Boolean getValid(final RegisterView view, PenggunaModels penggunaModels, RegisterCallback callback) {
-        final Boolean[] bool = new Boolean[1];
-        profil(view, penggunaModels, new RegisterCallback() {
-            @Override
-            public void onSuccess(boolean value, PenggunaModels penggunaModels) {
-                bool[0] = true;
-            }
-
-            @Override
-            public void onError() {
-                bool[0] = false;
-            }
-        });
-        return bool[0];
-    }
+//    public Boolean getValid(final RegisterView view, PenggunaModels penggunaModels, RegisterCallback callback) {
+//        final Boolean[] bool = new Boolean[1];
+//        profil(view, penggunaModels, new RegisterCallback() {
+//            @Override
+//            public void onSuccess(boolean value, PenggunaModels penggunaModels) {
+//                bool[0] = true;
+//            }
+//
+//            @Override
+//            public void onError() {
+//                bool[0] = false;
+//            }
+//        });
+//        return bool[0];
+//    }
 
     public void register(final RegisterView view, PenggunaModels penggunaModels, final
     RegisterCallback callback, RegisterActivity activity, FirebaseAuth mAuth, RequestQueue queue) {
