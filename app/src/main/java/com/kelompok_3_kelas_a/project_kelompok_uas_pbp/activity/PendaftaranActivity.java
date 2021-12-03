@@ -25,6 +25,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.HalamanPendaftaran;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.adapters.PendaftaranAdapter;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.PendaftaranApi;
@@ -91,6 +92,12 @@ public class PendaftaranActivity extends AppCompatActivity {
         rvPendaftaran.setAdapter(adapter);
 
         getAllProduk();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(PendaftaranActivity.this, HalamanPendaftaran.class));
     }
 
     @Override

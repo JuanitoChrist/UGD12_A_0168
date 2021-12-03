@@ -35,6 +35,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.HalamanUtama;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.ApiInterface;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.PendaftaranApi;
@@ -157,6 +158,16 @@ public class ProfilePenggunaActivity extends AppCompatActivity {
 //            }
 //        });
 ////        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(ProfilePenggunaActivity.this, HalamanUtama.class));
+//        super.onBackPressed();
+//        Intent returnIntent = new Intent();
+//        setResult(RESULT_OK, returnIntent);
+//        finish();
     }
 
 //    private String bitmapToBase64(Bitmap bitmap) {

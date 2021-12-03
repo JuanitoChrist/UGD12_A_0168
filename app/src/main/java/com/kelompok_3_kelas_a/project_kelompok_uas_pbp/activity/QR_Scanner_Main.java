@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.HalamanUtama;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.databinding.ActivityQrScannerMainBinding;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.databinding.ActivityQrscannerBinding;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.hardware.QRScannerActivity;
@@ -38,6 +39,17 @@ public class QR_Scanner_Main extends AppCompatActivity {
                             }
                         }
                     });
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(QR_Scanner_Main.this, HalamanUtama.class));
+//        super.onBackPressed();
+//        Intent returnIntent = new Intent();
+//        setResult(RESULT_OK, returnIntent);
+//        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

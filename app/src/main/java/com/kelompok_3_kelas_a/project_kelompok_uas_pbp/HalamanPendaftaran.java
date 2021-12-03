@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.AddEditPendaftaranActivity;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.PendaftaranActivity;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.ProfilePenggunaActivity;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.QR_Scanner_Main;
 
 public class HalamanPendaftaran extends AppCompatActivity {
 
@@ -21,7 +22,7 @@ public class HalamanPendaftaran extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pendaftaran);
+        setContentView(R.layout.activity_halaman_pendaftaran);
         setTitle(" ");
 
         btnDaftar_HalamanPendaftaran = findViewById(R.id.btnDaftar_HalamanPendaftaran);
@@ -45,6 +46,12 @@ public class HalamanPendaftaran extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(HalamanPendaftaran.this, HalamanUtama.class));
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =

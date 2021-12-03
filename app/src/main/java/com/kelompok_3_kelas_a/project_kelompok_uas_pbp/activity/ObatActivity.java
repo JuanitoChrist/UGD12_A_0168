@@ -64,7 +64,7 @@ public class ObatActivity extends AppCompatActivity {
         obatModelsArrayList = new ObatList().ObatModels;
 
         setTitle("Daftar Obat");
-        setContentView(R.layout.activity_pendaftaran);
+        setContentView(R.layout.activity_obat);
 
         layoutLoading = findViewById(R.id.layout_loading);
         sr_obat = findViewById(R.id.sr_obat);

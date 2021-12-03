@@ -26,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.HalamanPendaftaran;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.HalamanUtama;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.PendaftaranApi;
@@ -72,6 +73,7 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(AddEditPendaftaranActivity.this, HalamanPendaftaran.class));
                 finish();
             }
         });
@@ -100,6 +102,12 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(AddEditPendaftaranActivity.this, HalamanPendaftaran.class));
     }
 
     private void getPendaftaranById(long id){

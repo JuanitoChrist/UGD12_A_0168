@@ -16,15 +16,6 @@
             android:name=".activity.ProfilePenggunaActivity"
             android:exported="true" />
         <activity
-            android:name=".HalamanObat"
-            android:exported="true" />
-        <activity
-            android:name=".HalamanPendaftaran"
-            android:exported="true" />
-        <activity
-            android:name=".HalamanUtama"
-            android:exported="true" />
-        <activity
             android:name=".email.RegisterActivity"
             android:exported="true" />
         <activity
@@ -36,6 +27,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".HalamanUtama"
+            android:exported="true" />
+        <activity
+            android:name=".HalamanObat"
+            android:exported="true" />
+        <activity
+            android:name=".HalamanPendaftaran"
+            android:exported="true" />
         <activity
             android:name=".activity.BarChartActivityMain"
             android:exported="true" />

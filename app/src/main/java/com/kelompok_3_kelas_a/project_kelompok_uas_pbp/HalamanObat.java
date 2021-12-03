@@ -34,20 +34,20 @@ public class HalamanObat extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_obat);
+        setContentView(R.layout.activity_halaman_obat);
         setTitle(" ");
 
         btnBeliObat_HalamanObat = findViewById(R.id.btnBeliObat_HalamanObat);
         btnDaftarBeliObat_HalamanObat = findViewById(R.id.btnDaftarBeliObat_HalamanObat);
 
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation); /*masih error*/
-//        bottomNavigationView.setSelectedItemId(R.id.homeMenu);
-//        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation); /*masih error*/
+        bottomNavigationView.setSelectedItemId(R.id.homeMenu);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
         btnBeliObat_HalamanObat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HalamanObat.this, ObatAdapter.class));
+                startActivity(new Intent(HalamanObat.this, ObatActivity.class));
                 finish();
             }
         });
@@ -60,21 +60,27 @@ public class HalamanObat extends AppCompatActivity {
         });
     }
 
-//    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-//            new BottomNavigationView.OnNavigationItemSelectedListener(){
-//                @Override
-//                public boolean onNavigationItemSelected(@NonNull MenuItem item){
-//                    switch(item.getItemId()){
-//                        case R.id.homeMenu:
-//                            startActivity(new Intent(HalamanObat.this, HalamanUtama.class));
-//                            finish();
-//                            break;
-//                        case R.id.profileMenu:
-//                            startActivity(new Intent(HalamanObat.this, ProfilePenggunaActivity.class));
-//                            finish();
-//                            break;
-//                    }
-//                    return true;
-//                }
-//            };
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(HalamanObat.this, HalamanUtama.class));
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener(){
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item){
+                    switch(item.getItemId()){
+                        case R.id.homeMenu:
+                            startActivity(new Intent(HalamanObat.this, HalamanUtama.class));
+                            finish();
+                            break;
+                        case R.id.profileMenu:
+                            startActivity(new Intent(HalamanObat.this, ProfilePenggunaActivity.class));
+                            finish();
+                            break;
+                    }
+                    return true;
+                }
+            };
 }
