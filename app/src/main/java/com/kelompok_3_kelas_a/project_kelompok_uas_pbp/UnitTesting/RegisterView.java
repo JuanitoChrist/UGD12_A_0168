@@ -13,6 +13,9 @@ public interface RegisterView {
         String getPassword();
         void showPasswordError(String message);
         void startRegisterActivity();
+        void showProfilError(String message);
+        void showErrorResponse(String message);
+
 
 
 
