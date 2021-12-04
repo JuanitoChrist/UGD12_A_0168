@@ -18,41 +18,42 @@ public class RegisterPresenter {
 
     public void onRegisterClicked() {
         String regex = "[1-9]+";
-        String regex1 = "[a-zA-Z]";
+        String regex1 =  "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";;
 // Sumber pattern:
         https://developer.android.com/reference/java/util/regex/Pattern
         if (view.getNama().isEmpty()) {
             view.showNamaError("Nama tidak boleh kosong");
             return;
-        } else if (view.getUmur().get) {
-            view.showLastNameError("Nama Belakang tidak boleh
-                    kosong");
+        } else if (view.getUmur() < 3) {
+            view.showUmurError("Umur tidak lebih dari 2");
             return;
-        } else if(view.getSemester().isEmpty()){
-            view.showSemesterError("Semester tidak boleh kosong");
+        } else if(view.getUmur()==null){
+            view.showUmurError("Umur tidak boleh kosong");
             return;
-        } else if(!(view.getSemester().matches(regex))){
-            view.showSemesterError("Format Semester harus berupa
-                    angka 1 sampai 9");
+        } else if(!(view.getUmur().matches(regex))){
+            view.showUmurError("Format Umur harus berupa angka 1 sampai 9");
             return;
-        } else if(view.getTanggalLahir().isEmpty()){
-            view.showTanggalLahirError("Tanggal Lahir tidak boleh
-                    kosong");
+        } else if(view.getEmail().isEmpty()){
+            view.showEmailError("Tanggal Lahir tidak boleh kosong");
             return;
-        } else if(view.getTanggalLahir().length() < 6){
-            view.showTanggalLahirError("Tanggal Lahir tidak boleh
-                    kurang dari 6 digit");
+        } else if(view.getEmail().isEmpty()){
+            view.showEmailError("Email tidak boleh kosong");
             return;
-        } else if(view.getTanggalLahir().length() > 6){
-            view.showTanggalLahirError("Tanggal Lahir tidak boleh
-                    lebih dari 6 digit");
+        } else if(view.getEmail().matches(regex1)){
+            view.showEmailError("Email harus berformat email");
+            return;
+        } else if(view.getJenisKelamin().isEmpty()){
+            view.showJenisKelaminError("Jenis Kelamin tidak boleh kosong");
+            return;
+        } else if(view.getPassword().isEmpty()){
+            view.showPasswordError("Password tidak boleh kosong");
             return;
         } else {
-            service.profil(view, profil, new ProfilCallback() {
+            service.register(view, pengguna, new RegisterCallback() {
                 @Override
-                public void onSuccess(boolean value, Profil profil)
+                public void onSuccess(boolean value, PenggunaModels penggunaModels)
                 {
-                    view.startMainProfil();
+                    view.startRegisterActivity();
                 }
                 @Override
                 public void onError() {
