@@ -24,14 +24,14 @@ public class RegisterPresenter {
 
     public void onRegisterClicked() {
         String regex = "[0-9]{1,2}";
-        String regex1 =  "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";;
+        String regex1 =  "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 // Sumber pattern:
         https://developer.android.com/reference/java/util/regex/Pattern
         if (view.getNama().isEmpty()) {
             view.showNamaError("Nama tidak boleh kosong");
             return;
-        } else if (view.getUmur().length() < 3) {
-            view.showUmurError("Umur tidak lebih dari 3 digit");
+        } else if (view.getUmur().length() < 2) {
+            view.showUmurError("Umur tidak lebih dari 2 digit");
             return;
         } else if(view.getUmur().isEmpty()){
             view.showUmurError("Umur tidak boleh kosong");
