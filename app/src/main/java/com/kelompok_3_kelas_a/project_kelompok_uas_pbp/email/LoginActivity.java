@@ -30,6 +30,7 @@ import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.LoginApi;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaModels;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaResponse;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.preferences.userPreferences;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,12 +43,11 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String SHARE_PREFS = "SharedPrefUser";
     public static final String SAVE_ID = "idUser";
-    public static final String TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTg5MDkwOTI4Y2I4NGQwNDE3YjVlMWQ4ZGQ0MDg2MzQ5MWQ1ZjgzNGNmMjY2ZWZhNmQ5N2NlMTc4MTFkZDAzZjAxNGY0NmMyYWU4Y2FmMTYiLCJpYXQiOjE2Mzg1OTExNDEuMzU0MTA4LCJuYmYiOjE2Mzg1OTExNDEuMzU0MTEyLCJleHAiOjE2NzAxMjcxNDEuMzQzMTc5LCJzdWIiOiI5Iiwic2NvcGVzIjpbXX0.uYBweEnfs8s26sQEEluVl9OB5oQcbwlkMTwbs3hPUmha_MiPqfTx4i5h7GcDvPH_9Ek-bg70cKNg8I3PsPZivU9htOKpjuYJ_lVY-aeAkEUrA4q_t7ToGwWPg-ah1yGBbJADgDwImr3nz6i-9zUPyvYQJ503moBk8tl9LdSZ2nWyWpzwjo1JDenZ9AC4mJlnrj-9bxlrNscApmQcC3j__r5NVp4bbLU0KFJXNyDqJpWbz0kHnM5Vr2S6LgPoRus8aus0id5Zu0FkwOhSJ8KEh1qxKmrAZfyfQPeUJz4hnDwOf3eT4rZS9fjBIHg57Snfp9o83MxlEblXHuk8yMGeH84AYuN44lUFmvS8lLB57tGcpvevAFPsE0_vdB30Y7R0E2jhDEKDKfPfTZmmJ0FwjNKyx2nn3ZnQn8NLfwBqBSJSsi7MujxrXTcl9dz6r1fT8fSYJkX5bta-Q6_mCI9vNGVVdmZBP2Cc5FQcXnhR_bOsmkmWACHtdU5ks9DLCFF6kqzrTTe2PtwMvZOaYcvl0SvKxcQ57TxNy2V40FwzYu0iGYYUMLmqR751FjYlQ-lovRWot5fy7J7jLc4iNMbH0wNIyime-_sDe_cuRV0BQeKStjk3nyIik1jMecGGm6_W2OhoPP8LBYkYDwQojI9kW5fcLhNdNcpGVqcZzc5Ylm8"
-    ; private Button btnRegister, btnLogin;
+    private Button btnRegister, btnLogin;
     private EditText etEmail, etPassword;
     private RequestQueue queue;
     private long id;
-    private SharedPreferences sharedPreferences;
+    private userPreferences userPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +56,9 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btn_register);
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
-        sharedPreferences = getSharedPreferences("SharedPrefUser", Context.MODE_PRIVATE);
-        id = sharedPreferences.getLong("id", 0);
+        userPreferences = new userPreferences(LoginActivity.this);
+//        sharedPreferences = getSharedPreferences("SharedPrefUser", Context.MODE_PRIVATE);
+//        id = sharedPreferences.getLong("id", 0);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,8 +92,9 @@ public class LoginActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
                         JSONObject userObject = jsonObject.getJSONObject("user"); /*kemungkinan error*/
+                        id = userObject.getLong("id");
+                        userPreferences.setLogin(id);
                         startActivity(new Intent(LoginActivity.this, HalamanUtama.class));
-                        saveId(userObject.getLong("id"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -133,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     params.put("email", email);
                     params.put("password", password);
-                    params.put("Authorization", "Bearer" + " " + TOKEN);
+//                    params.put("Authorization", "Bearer" + " " + TOKEN);
                     return params;
                 }
 
@@ -155,9 +157,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void saveId(long id){
-        SharedPreferences sharedPreferences = LoginActivity.this.getSharedPreferences(SHARE_PREFS, LoginActivity.this.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putLong(SAVE_ID, id);
-        editor.commit();
+        userPreferences.setLogin(id);
     }
 }

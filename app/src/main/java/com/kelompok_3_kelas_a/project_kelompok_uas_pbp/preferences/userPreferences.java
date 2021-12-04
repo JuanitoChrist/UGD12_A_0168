@@ -20,6 +20,7 @@ public class userPreferences {
 
     public void setLogin(Long id){
         editor.putLong(KEY_ID, id);
+        editor.commit();
     }
 
     public PenggunaModels getPenggunaModels(){

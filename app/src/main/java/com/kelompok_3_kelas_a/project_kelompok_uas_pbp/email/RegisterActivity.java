@@ -25,9 +25,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.HalamanUtama;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.UnitTesting.ActivityUtil;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.UnitTesting.RegisterView;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.ProfilePenggunaActivity;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.RegisterUserApi;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaModels;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaResponse;
@@ -43,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     private static final String[] JENIS_KELAMIN_LIST = new String[]{"Laki-laki", "Perempuan"};
 
     private EditText etNama, etUmur, etEmail, etPassword, et_jenis_kelamin;
-    private Button btnSave;
+    private Button btnSave, btnCancel;
     private RequestQueue queue;
 
     @Override
@@ -58,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         etPassword = findViewById(R.id.et_password);
         et_jenis_kelamin = findViewById(R.id.et_jenis_kelamin);
         btnSave = findViewById(R.id.btn_save);
+        btnCancel = findViewById(R.id.btn_cancel_register);
 
 //        ArrayAdapter<String> adapterJenisKelamin = new ArrayAdapter<>(this, R.layout.item_list_register, JENIS_KELAMIN_LIST);
 //        et_jenis_kelamin.setAdapter(adapterJenisKelamin);
@@ -68,6 +71,13 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                 createUser();
             }
         });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            }
+        });
+
     }
 
     private void createUser(){
