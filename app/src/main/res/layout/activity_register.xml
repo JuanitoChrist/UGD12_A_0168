@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
-                android:hint="nama">
+                android:hint="Nama">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_nama"
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
-                android:hint="umur">
+                android:hint="Umur">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_umur"
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
-                android:hint="Password">
+                android:hint="Jenis Kelamin">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_jenis_kelamin"

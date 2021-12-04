@@ -77,8 +77,8 @@ public class ProfilePenggunaActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.et_password);
         et_jenis_kelamin = findViewById(R.id.et_jenis_kelamin);
 
-        ArrayAdapter<String> adapterJenisKelamin = new ArrayAdapter<>(this, R.layout.item_list_pengguna, JENIS_KELAMIN_LIST);
-        edJenisKelamin.setAdapter(adapterJenisKelamin);
+//        ArrayAdapter<String> adapterJenisKelamin = new ArrayAdapter<>(this, R.layout.item_list_pengguna, JENIS_KELAMIN_LIST);
+//        et.setAdapter(adapterJenisKelamin);
     }
 
     @Override

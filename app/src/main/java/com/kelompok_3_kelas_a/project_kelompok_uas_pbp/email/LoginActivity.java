@@ -42,7 +42,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String SHARE_PREFS = "SharedPrefUser";
     public static final String SAVE_ID = "idUser";
-    private Button btnRegister, btnLogin;
+    public static final String TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMTg5MDkwOTI4Y2I4NGQwNDE3YjVlMWQ4ZGQ0MDg2MzQ5MWQ1ZjgzNGNmMjY2ZWZhNmQ5N2NlMTc4MTFkZDAzZjAxNGY0NmMyYWU4Y2FmMTYiLCJpYXQiOjE2Mzg1OTExNDEuMzU0MTA4LCJuYmYiOjE2Mzg1OTExNDEuMzU0MTEyLCJleHAiOjE2NzAxMjcxNDEuMzQzMTc5LCJzdWIiOiI5Iiwic2NvcGVzIjpbXX0.uYBweEnfs8s26sQEEluVl9OB5oQcbwlkMTwbs3hPUmha_MiPqfTx4i5h7GcDvPH_9Ek-bg70cKNg8I3PsPZivU9htOKpjuYJ_lVY-aeAkEUrA4q_t7ToGwWPg-ah1yGBbJADgDwImr3nz6i-9zUPyvYQJ503moBk8tl9LdSZ2nWyWpzwjo1JDenZ9AC4mJlnrj-9bxlrNscApmQcC3j__r5NVp4bbLU0KFJXNyDqJpWbz0kHnM5Vr2S6LgPoRus8aus0id5Zu0FkwOhSJ8KEh1qxKmrAZfyfQPeUJz4hnDwOf3eT4rZS9fjBIHg57Snfp9o83MxlEblXHuk8yMGeH84AYuN44lUFmvS8lLB57tGcpvevAFPsE0_vdB30Y7R0E2jhDEKDKfPfTZmmJ0FwjNKyx2nn3ZnQn8NLfwBqBSJSsi7MujxrXTcl9dz6r1fT8fSYJkX5bta-Q6_mCI9vNGVVdmZBP2Cc5FQcXnhR_bOsmkmWACHtdU5ks9DLCFF6kqzrTTe2PtwMvZOaYcvl0SvKxcQ57TxNy2V40FwzYu0iGYYUMLmqR751FjYlQ-lovRWot5fy7J7jLc4iNMbH0wNIyime-_sDe_cuRV0BQeKStjk3nyIik1jMecGGm6_W2OhoPP8LBYkYDwQojI9kW5fcLhNdNcpGVqcZzc5Ylm8"
+    ; private Button btnRegister, btnLogin;
     private EditText etEmail, etPassword;
     private RequestQueue queue;
     private long id;
@@ -82,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             etPassword.setError("Password cannot be empty");
             etPassword.requestFocus();
         }else{
+//            startActivity(new Intent(LoginActivity.this, HalamanUtama.class));
             RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
             StringRequest stringRequest = new StringRequest(POST, LoginApi.ADD_URL, new Response.Listener<String>() {
                 @Override
@@ -131,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     params.put("email", email);
                     params.put("password", password);
-
+                    params.put("Authorization", "Bearer" + " " + TOKEN);
                     return params;
                 }
 

@@ -14,6 +14,7 @@ import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.BarChartActivity
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.ObatActivity;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.PendaftaranActivity;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.ProfilePenggunaActivity;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.QR_Scanner_Main;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.hardware.QRScannerActivity;
 
 public class HalamanUtama extends AppCompatActivity {
@@ -60,7 +61,7 @@ public class HalamanUtama extends AppCompatActivity {
         btnScanQR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HalamanUtama.this, QRScannerActivity.class));
+                startActivity(new Intent(HalamanUtama.this, QR_Scanner_Main.class));
                 finish();
             }
         });

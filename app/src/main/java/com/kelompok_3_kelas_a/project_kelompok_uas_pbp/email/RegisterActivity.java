@@ -165,8 +165,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     }
 
     @Override
-    public Integer getUmur() {
-        return Integer.parseInt(etUmur.getText().toString());
+    public String getUmur() {
+        return (etUmur.getText().toString());
     }
 
     @Override
