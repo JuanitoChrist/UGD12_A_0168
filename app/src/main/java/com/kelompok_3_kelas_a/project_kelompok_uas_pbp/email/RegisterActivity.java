@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -39,6 +40,7 @@ import org.json.JSONObject;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterView {
 
@@ -98,6 +100,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
             etNama.requestFocus();
         }else if(TextUtils.isEmpty(umur)){
             etUmur.setError("Umur cannot be empty");
+            etUmur.requestFocus();
+        }else if(etUmur.length() > 2){
+            etUmur.setError("Umur cannot more than 2 digits");
             etUmur.requestFocus();
         }else if(TextUtils.isEmpty(email)){
             etEmail.setError("Email cannot be empty");
