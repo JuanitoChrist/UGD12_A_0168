@@ -105,7 +105,6 @@ public class ObatActivity extends AppCompatActivity {
         startActivity(new Intent(ObatActivity.this, HalamanObat.class));
     }
 
-
     // Fungsi ini digunakan menampilkan layout loading
     private void setLoading(boolean isLoading) {
         if (isLoading) {
