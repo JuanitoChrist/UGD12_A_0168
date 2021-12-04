@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -87,9 +88,9 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(String response) {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
-//                        JSONObject userObject = jsonObject.getJSONObject("user"); /*kemungkinan error*/
+                        JSONObject userObject = jsonObject.getJSONObject("user"); /*kemungkinan error*/
                         startActivity(new Intent(LoginActivity.this, HalamanUtama.class));
-//                        saveId(userObject.getLong("id"));
+                        saveId(userObject.getLong("id"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -97,20 +98,41 @@ public class LoginActivity extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    try {
-                        String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
-                        JSONObject errors = new JSONObject(responseBody);
-                        Toast.makeText(LoginActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
-                    } catch (Exception e) {
-                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    NetworkResponse networkResponse = error.networkResponse;
+                    Toast.makeText(LoginActivity.this, email, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, password, Toast.LENGTH_SHORT).show();
+                    if (networkResponse != null && networkResponse.data != null)
+                    {
+                        String jsonError = new String(networkResponse.data);
+                        Toast.makeText(LoginActivity.this, jsonError, Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(LoginActivity.this, "hai", Toast.LENGTH_SHORT).show();
                     }
+//                    try {
+//                        String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+//                        JSONObject errors = new JSONObject(responseBody);
+//                        Toast.makeText(LoginActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
+//                    } catch (Exception e) {
+//                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
                 }
             }){
+//                @Override
+//                public Map<String, String> getHeaders() throws AuthFailureError {
+//                    HashMap<String, String> headers = new HashMap<String, String>();
+//                    headers.put("Accept", "application/json");
+//                    return headers;
+//                }
+
                 @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("Accept", "application/json");
-                    return headers;
+                protected Map<String, String> getParams()
+                {
+                    Map<String, String>  params = new HashMap<String, String>();
+
+                    params.put("email", email);
+                    params.put("password", password);
+
+                    return params;
                 }
 
                 @Override
