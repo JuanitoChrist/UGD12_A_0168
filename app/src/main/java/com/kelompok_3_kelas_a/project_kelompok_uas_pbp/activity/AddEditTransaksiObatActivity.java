@@ -31,9 +31,10 @@ import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.TransaksiObatApi;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.ObatList;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.ObatModels;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaModels;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.TransaksiObatModels;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.TransaksiObatResponse;
-
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.preferences.userPreferences;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
@@ -54,6 +55,10 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
     private Integer tampungIdObat;
     ArrayList<ObatModels> obatModelsArrayList;
     private ObatModels obatDipilih;
+    private userPreferences userPreferences;
+    private PenggunaModels penggunaModels;
+    private long idUserPref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +82,10 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
         iv_gambarTransaksiObat = findViewById(R.id.iv_gambarTransaksiObat);
 
         layoutLoading = findViewById(R.id.layout_loading);
+
+        userPreferences = new userPreferences(AddEditTransaksiObatActivity.this);
+        penggunaModels = userPreferences.getPenggunaModels();
+        idUserPref = penggunaModels.getId();
 
         setObatDipilih();
         Glide.with(AddEditTransaksiObatActivity.this)
@@ -132,7 +141,7 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
     private void getTransaksiObatById(long id){
         setLoading(true);
 
-        StringRequest stringRequest = new StringRequest(GET, TransaksiObatApi.GET_BY_ID_URL + id, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(GET, TransaksiObatApi.GET_BY_ID_URL + idUserPref, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
@@ -185,7 +194,7 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
                     Integer.parseInt(et_jumlahBeliTransaksi.getText().toString()),
                     obatDipilih.getIdObat());
 
-            StringRequest stringRequest = new StringRequest(POST, TransaksiObatApi.ADD_URL, new Response.Listener<String>() {
+            StringRequest stringRequest = new StringRequest(POST, TransaksiObatApi.ADD_URL + idUserPref, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Gson gson = new Gson();

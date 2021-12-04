@@ -32,6 +32,8 @@ import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.PendaftaranApi;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PendaftaranModels;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PendaftaranResponse;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaModels;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.preferences.userPreferences;
 
 import org.json.JSONObject;
 
@@ -48,6 +50,10 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
     private AutoCompleteTextView ed_keluhan_pendaftar, ed_jenisKelamin_pendaftar;
     private LinearLayout layoutLoading;
     private RequestQueue queue;
+    private userPreferences userPreferences;
+    private PenggunaModels penggunaModels;
+    private long idUserPref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +74,10 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapterJenisKelamin = new ArrayAdapter<>(this, R.layout.item_list_pendaftaran, JENIS_KELAMIN_LIST);
         ed_jenisKelamin_pendaftar.setAdapter(adapterJenisKelamin);
+
+        userPreferences = new userPreferences(AddEditPendaftaranActivity.this);
+        penggunaModels = userPreferences.getPenggunaModels();
+        idUserPref = penggunaModels.getId();
 
         Button btnCancel = findViewById(R.id.btn_cancelPendaftaran);
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +123,7 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
     private void getPendaftaranById(long id){
         setLoading(true);
 
-        StringRequest stringRequest = new StringRequest(GET, PendaftaranApi.GET_BY_ID_URL + id, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(GET, PendaftaranApi.GET_BY_ID_URL + idUserPref, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
@@ -168,7 +178,7 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
                     ed_keluhan_pendaftar.getText().toString(),
                     ed_jenisKelamin_pendaftar.getText().toString());
 
-            StringRequest stringRequest = new StringRequest(POST, PendaftaranApi.ADD_URL, new Response.Listener<String>() {
+            StringRequest stringRequest = new StringRequest(POST, PendaftaranApi.ADD_URL + idUserPref, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Gson gson = new Gson();

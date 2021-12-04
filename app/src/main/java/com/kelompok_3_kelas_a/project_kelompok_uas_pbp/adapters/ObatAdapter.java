@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -76,13 +77,13 @@ public class ObatAdapter extends RecyclerView.Adapter<ObatAdapter.viewHolder>
 //                .placeholder(R.drawable.no_image)
 //                .into(holder.binding.ivGambarObat);
 
-//        holder.binding.tvNamaObat.setText(obatModels.getNamaObat());
-//        holder.binding.tvStokObat.setText("Stok " + obatModels.getStokObat());
-//        DecimalFormat rupiahFormat = (DecimalFormat) DecimalFormat
-//                .getCurrencyInstance(new Locale("in", "ID"));
-//        holder.binding.tvHargaObat.setText(rupiahFormat.format(obatModels.getHargaObat()));
-
         holder.binding.tvNamaObat.setText(obatModels.getNamaObat());
+        holder.binding.tvStokObat.setText("Stok " + obatModels.getStokObat());
+        DecimalFormat rupiahFormat = (DecimalFormat) DecimalFormat
+                .getCurrencyInstance(new Locale("in", "ID"));
+        holder.binding.tvHargaObat.setText(rupiahFormat.format(obatModels.getHargaObat()));
+
+        holder.binding.tvNamaObat.setText(obatModels.getNamaObat().toString());
         holder.binding.tvStokObat.setText(String.valueOf(obatModels.getStokObat()));
         holder.binding.tvHargaObat.setText(String.valueOf(obatModels.getHargaObat()));
 

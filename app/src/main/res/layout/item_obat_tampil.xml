@@ -52,7 +52,7 @@
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:hint="Nama Obat"
-                        android:text="@{obat.namaObat}" />
+                        />
 
                     <TextView
                         android:id="@+id/tv_hargaObat"
@@ -63,7 +63,7 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:hint="Rp99.999.999"
-                        android:text="@{String.valueOf(obat.hargaObat)}"
+
                         android:textSize="15sp" />
 
                     <LinearLayout
@@ -81,7 +81,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Stok 99"
-                            android:text="@{String.valueOf(obat.stokObat)}"/>
+                            />
                     </LinearLayout>
 
                 </LinearLayout>
