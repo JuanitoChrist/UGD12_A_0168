@@ -31,6 +31,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.HalamanObat;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.HalamanPendaftaran;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.HalamanUtama;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.adapters.ObatAdapter;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.adapters.PendaftaranAdapter;
@@ -95,6 +98,13 @@ public class ObatActivity extends AppCompatActivity {
         rv_obat.setLayoutManager(new GridLayoutManager(this, spanCount));
         rv_obat.setAdapter(new ObatAdapter(obatModelsArrayList, this));
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(ObatActivity.this, HalamanObat.class));
+    }
+
 
     // Fungsi ini digunakan menampilkan layout loading
     private void setLoading(boolean isLoading) {
