@@ -30,7 +30,7 @@ public class RegisterPresenter {
         if (view.getNama().isEmpty()) {
             view.showNamaError("Nama tidak boleh kosong");
             return;
-        } else if (view.getUmur().length() < 2) {
+        } else if (view.getUmur().length() > 2) {
             view.showUmurError("Umur tidak lebih dari 2 digit");
             return;
         } else if(view.getUmur().isEmpty()){
@@ -42,7 +42,7 @@ public class RegisterPresenter {
         } else if(view.getEmail().isEmpty()){
             view.showEmailError("Email tidak boleh kosong");
             return;
-        } else if(view.getEmail().matches(regex1)){
+        } else if(!view.getEmail().matches(regex1)){
             view.showEmailError("Email harus berformat email");
             return;
         } else if(view.getJenisKelamin().isEmpty()){

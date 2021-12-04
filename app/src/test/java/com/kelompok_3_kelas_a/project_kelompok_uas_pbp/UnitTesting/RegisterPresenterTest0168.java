@@ -17,7 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 
 
-public class RegisterPresenterTest {
+public class RegisterPresenterTest0168 {
 
     @Mock
     private RegisterView view;
@@ -76,7 +76,7 @@ public class RegisterPresenterTest {
         System.out.println("Testing Keempat: Inputan Keempat angka dan tidak sesuai dengan format");
         when(view.getNama()).thenReturn("Juan");
         System.out.println( view.getNama());
-        when(view.getUmur()).thenReturn("133");
+        when(view.getUmur()).thenReturn("ab");
         System.out.println(view.getUmur());
         presenter.onRegisterClicked();
         verify(view).showUmurError("Umur harus merupakan angka");
@@ -109,6 +109,21 @@ public class RegisterPresenterTest {
         presenter.onRegisterClicked();
         verify(view).showEmailError("Email harus berformat email");
     }
+
+    @Test
+    public void shouldShowErrorMessageWhenEmailIsNotInFormatAgain() throws
+            Exception {
+        System.out.println("Testing Keenam: Inputan Keenam Format email tidak sesuai");
+        when(view.getNama()).thenReturn("Juan");
+        System.out.println( view.getNama());
+        when(view.getUmur()).thenReturn("13");
+        System.out.println(view.getUmur());
+        when(view.getEmail()).thenReturn("kosong123@gmail");
+        System.out.println(view.getEmail());
+        presenter.onRegisterClicked();
+        verify(view).showEmailError("Email harus berformat email");
+    }
+
 
     @Test
     public void shouldShowErrorMessageWhenJenisKelaminIsEmpty() throws
