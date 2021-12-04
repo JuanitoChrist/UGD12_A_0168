@@ -30,7 +30,7 @@ public class RegisterPresenter {
         } else if(view.getUmur()==null){
             view.showUmurError("Umur tidak boleh kosong");
             return;
-        } else if(!(view.getUmur().matches(regex))){
+        } else if(!(view.getUmur().matches("\d{2}")){
             view.showUmurError("Format Umur harus berupa angka 1 sampai 9");
             return;
         } else if(view.getEmail().isEmpty()){

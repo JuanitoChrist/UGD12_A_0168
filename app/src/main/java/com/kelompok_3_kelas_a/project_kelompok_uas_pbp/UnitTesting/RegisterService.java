@@ -76,6 +76,7 @@ public class RegisterService {
                                     } else {
                                         Toast.makeText(activity, "Registration Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                         callback.onError();
+                                        view.showProfilError(penggunaResponse.getMessage());
                                     }
                                 }
                             });
