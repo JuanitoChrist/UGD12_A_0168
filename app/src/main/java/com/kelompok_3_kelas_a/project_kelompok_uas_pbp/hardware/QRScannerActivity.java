@@ -21,6 +21,9 @@ import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.budiyev.android.codescanner.ScanMode;
 import com.google.zxing.Result;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.HalamanPendaftaran;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.HalamanUtama;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.activity.QR_Scanner_Main;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.databinding.ActivityQrscannerBinding;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.databinding.ActivityQrscannerBinding;
 
@@ -38,6 +41,7 @@ public class QRScannerActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 }
             });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,7 @@ public class QRScannerActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setupPermission();
     }
+
     private void setupPermission() {
         if (ContextCompat.checkSelfPermission(
                 this, Manifest.permission.CAMERA) ==
@@ -78,6 +83,14 @@ public class QRScannerActivity extends AppCompatActivity {
                     Manifest.permission.CAMERA);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(QRScannerActivity.this, QR_Scanner_Main.class));
+    }
+
+
     private void setupScanner() {
         codeScanner = new CodeScanner(this, binding.scannerView);
         codeScanner.setCamera(CodeScanner.CAMERA_BACK);
