@@ -112,7 +112,7 @@ public class TransaksiObatAdapter extends RecyclerView.Adapter<TransaksiObatAdap
                 Intent i = new Intent(context, AddEditTransaksiObatActivity.class);
                 i.putExtra("id", transaksiObatModels.getIdTransaksiObat());
 
-                if (context instanceof PendaftaranActivity)
+                if (context instanceof TransaksiObatActivity)
                     ((TransaksiObatActivity) context).startActivityForResult(i,
                             TransaksiObatActivity.LAUNCH_ADD_ACTIVITY);
             }

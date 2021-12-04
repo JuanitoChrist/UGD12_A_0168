@@ -6,7 +6,7 @@ import java.util.List;
 
 public class TransaksiObatResponse {
     private String message;
-    @SerializedName("transaksiObat")
+    @SerializedName("data")
     private List<TransaksiObatModels> transaksiObatModelsList;
 
     public String getMessage() {

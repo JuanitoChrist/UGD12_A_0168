@@ -5,6 +5,7 @@ import static com.android.volley.Request.Method.GET;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -30,7 +31,9 @@ import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.adapters.TransaksiObatAdapter;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.PendaftaranApi;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.TransaksiObatApi;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaModels;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.TransaksiObatResponse;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.preferences.userPreferences;
 
 import org.json.JSONObject;
 
@@ -46,6 +49,9 @@ public class TransaksiObatActivity extends AppCompatActivity {
     private SearchView sv_transaksiObat;
     private LinearLayout layoutLoading;
     private RequestQueue queue;
+    private userPreferences userPreferences;
+    private PenggunaModels penggunaModels;
+    private long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +63,15 @@ public class TransaksiObatActivity extends AppCompatActivity {
         layoutLoading = findViewById(R.id.layout_loading);
         sr_transaksiObat = findViewById(R.id.sr_transaksiObat);
         sv_transaksiObat = findViewById(R.id.sv_transaksiObat);
+        userPreferences = new userPreferences(TransaksiObatActivity.this);
+
+        penggunaModels = userPreferences.getPenggunaModels();
+        id = penggunaModels.getId();
 
         sr_transaksiObat.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getAllProduk();
+                getAllProduk(id);
             }
         });
 
@@ -80,9 +90,10 @@ public class TransaksiObatActivity extends AppCompatActivity {
 
         RecyclerView rv_transaksiObat = findViewById(R.id.rv_transaksiObat);
         adapter = new TransaksiObatAdapter(new ArrayList<>(), this);
+        rv_transaksiObat.setLayoutManager(new LinearLayoutManager(TransaksiObatActivity.this, LinearLayoutManager.VERTICAL, false));
         rv_transaksiObat.setAdapter(adapter);
 
-        getAllProduk();
+        getAllProduk(id);
     }
 
     @Override
@@ -90,7 +101,7 @@ public class TransaksiObatActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == LAUNCH_ADD_ACTIVITY && resultCode == Activity.RESULT_OK)
-            getAllProduk();
+            getAllProduk(id);
     }
 
     @Override
@@ -99,9 +110,9 @@ public class TransaksiObatActivity extends AppCompatActivity {
         startActivity(new Intent(TransaksiObatActivity.this, HalamanObat.class));
     }
 
-    private void getAllProduk() {
+    private void getAllProduk(long id) {
         sr_transaksiObat.setRefreshing(true);
-        StringRequest stringRequest = new StringRequest(GET, TransaksiObatApi.GET_ALL_URL,
+        StringRequest stringRequest = new StringRequest(GET, TransaksiObatApi.GET_ALL_URL + id,
                 new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -111,8 +122,10 @@ public class TransaksiObatActivity extends AppCompatActivity {
                 adapter.setTransaksiObatModelsList(transaksiObatResponse.getTransaksiObatModelsList());
                 adapter.getFilter().filter(sv_transaksiObat.getQuery());
 
+                Toast.makeText(TransaksiObatActivity.this, "sini", Toast.LENGTH_SHORT).show();
                 Toast.makeText(TransaksiObatActivity.this, transaksiObatResponse.getMessage(),
                         Toast.LENGTH_SHORT).show();
+
                 sr_transaksiObat.setRefreshing(false);
             }
         }, new Response.ErrorListener() {
@@ -122,8 +135,10 @@ public class TransaksiObatActivity extends AppCompatActivity {
                 try {
                     String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
+                    Toast.makeText(TransaksiObatActivity.this, "error", Toast.LENGTH_SHORT).show();
                     Toast.makeText(TransaksiObatActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
+                    Toast.makeText(TransaksiObatActivity.this, "error 2", Toast.LENGTH_SHORT).show();
                     Toast.makeText(TransaksiObatActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -149,7 +164,7 @@ public class TransaksiObatActivity extends AppCompatActivity {
                 TransaksiObatResponse transaksiObatResponse = gson.fromJson(response, TransaksiObatResponse.class);
                 setLoading(false);
                 Toast.makeText(TransaksiObatActivity.this, transaksiObatResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                getAllProduk();
+                getAllProduk(id);
             }
         }, new Response.ErrorListener() {
             @Override

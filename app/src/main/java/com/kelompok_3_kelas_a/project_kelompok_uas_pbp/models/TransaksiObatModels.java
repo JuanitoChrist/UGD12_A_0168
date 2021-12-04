@@ -27,6 +27,17 @@ public class TransaksiObatModels {
         this.idObat = idObat;
     }
 
+    public TransaksiObatModels(String namaPembeli, String nomorHpPembeli, String alamatPembeli,
+                               String umurPembeli, Integer jumlahBeli, Integer idObat, double totalBayarObat) {
+        this.namaPembeli = namaPembeli;
+        this.nomorHpPembeli = nomorHpPembeli;
+        this.alamatPembeli = alamatPembeli;
+        this.umurPembeli = umurPembeli;
+        this.jumlahBeli = jumlahBeli;
+        this.idObat = idObat;
+        this.totalBayarObat = totalBayarObat;
+    }
+
     public Long getIdTransaksiObat() {
         return idTransaksiObat;
     }
