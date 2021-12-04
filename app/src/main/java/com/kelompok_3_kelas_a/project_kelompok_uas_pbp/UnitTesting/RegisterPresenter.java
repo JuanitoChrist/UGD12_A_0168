@@ -1,5 +1,8 @@
 package com.kelompok_3_kelas_a.project_kelompok_uas_pbp.UnitTesting;
 
+import com.android.volley.RequestQueue;
+import com.google.firebase.auth.FirebaseAuth;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.email.RegisterActivity;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaModels;
 
 public class RegisterPresenter {
@@ -24,14 +27,14 @@ public class RegisterPresenter {
         if (view.getNama().isEmpty()) {
             view.showNamaError("Nama tidak boleh kosong");
             return;
-        } else if (view.getUmur() < 3) {
-            view.showUmurError("Umur tidak lebih dari 2");
+        } else if (view.getUmur().length() < 3) {
+            view.showUmurError("Umur tidak lebih dari 3");
             return;
-        } else if(view.getUmur()==null){
+        } else if(view.getUmur().isEmpty()){
             view.showUmurError("Umur tidak boleh kosong");
             return;
-        } else if(!(view.getUmur().matches("\d{2}")){
-            view.showUmurError("Format Umur harus berupa angka 1 sampai 9");
+        } else if(!(view.getUmur().matches(regex))){
+            view.showUmurError("Umur harus merupakan angka");
             return;
         } else if(view.getEmail().isEmpty()){
             view.showEmailError("Tanggal Lahir tidak boleh kosong");
@@ -49,11 +52,12 @@ public class RegisterPresenter {
             view.showPasswordError("Password tidak boleh kosong");
             return;
         } else {
-            service.register(view, pengguna, new RegisterCallback() {
+            service.register(view, pengguna, callback, activitu
+            {
                 @Override
                 public void onSuccess(boolean value, PenggunaModels penggunaModels)
                 {
-                    view.startRegisterActivity();
+                   view.startRegisterActivity();
                 }
                 @Override
                 public void onError() {
