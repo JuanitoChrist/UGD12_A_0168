@@ -109,14 +109,12 @@ public class PendaftaranActivity extends AppCompatActivity {
     }
 
     private void getAllProduk() {
-        // TODO: Tambahkan fungsi untuk menampilkan seluruh data buku.
         sr_Pendaftaran.setRefreshing(true);
-        StringRequest stringRequest = new StringRequest(GET, PendaftaranApi.GET_ALL_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(GET, PendaftaranApi.GET_ALL_URL,
+                new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                /* Deserialiasai data dari response JSON dari API
-                menjadi java object MahasiswaResponse menggunakan Gson */
                 PendaftaranResponse pendaftaranResponse = gson.fromJson(response, PendaftaranResponse.class);
 
                 adapter.setPendaftaranModelsList(pendaftaranResponse.getPendaftaranModelsList());
@@ -138,8 +136,6 @@ public class PendaftaranActivity extends AppCompatActivity {
                 }
             }
         }) {
-
-            //Menambahkan header pada request
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
@@ -158,8 +154,6 @@ public class PendaftaranActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                /* Deserialiasai data dari response JSON dari API
-                menjadi java object MahasiswaResponse menggunakan Gson */
 
                 PendaftaranResponse pendaftaranResponse = gson.fromJson(response, PendaftaranResponse.class);
                 setLoading(false); Toast.makeText(PendaftaranActivity.this, pendaftaranResponse.getMessage(), Toast.LENGTH_SHORT).show();

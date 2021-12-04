@@ -100,9 +100,9 @@ public class TransaksiObatActivity extends AppCompatActivity {
     }
 
     private void getAllProduk() {
-        // TODO: Tambahkan fungsi untuk menampilkan seluruh data buku.
         sr_transaksiObat.setRefreshing(true);
-        StringRequest stringRequest = new StringRequest(GET, TransaksiObatApi.GET_ALL_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(GET, TransaksiObatApi.GET_ALL_URL,
+                new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
@@ -111,7 +111,8 @@ public class TransaksiObatActivity extends AppCompatActivity {
                 adapter.setTransaksiObatModelsList(transaksiObatResponse.getTransaksiObatModelsList());
                 adapter.getFilter().filter(sv_transaksiObat.getQuery());
 
-                Toast.makeText(TransaksiObatActivity.this, transaksiObatResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransaksiObatActivity.this, transaksiObatResponse.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 sr_transaksiObat.setRefreshing(false);
             }
         }, new Response.ErrorListener() {
