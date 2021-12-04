@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class ObatAdapter extends RecyclerView.Adapter<ObatAdapter.ViewHolder>
+public class ObatAdapter extends RecyclerView.Adapter<ObatAdapter.viewHolder>
         implements Filterable {
 
     private List<ObatModels> obatModelsList, filteredObatList;
@@ -37,44 +37,59 @@ public class ObatAdapter extends RecyclerView.Adapter<ObatAdapter.ViewHolder>
         this.context = context;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    @NonNull
+    @Override
+    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        ItemObatTampilBinding binding = DataBindingUtil.inflate(inflater,R.layout.item_obat_tampil, parent, false);
+
+        return new viewHolder(binding);
+    }
+
+    public class viewHolder extends RecyclerView.ViewHolder {
         private ItemObatTampilBinding binding;
 
-        public ViewHolder(@NonNull ItemObatTampilBinding binding) {
+        public viewHolder(@NonNull ItemObatTampilBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
     }
 
-    @NonNull
-    @Override
-    public ObatAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ItemObatTampilBinding binding = DataBindingUtil.inflate(inflater,R.layout.item_obat_tampil, parent, false);
 
-        return new ObatAdapter.ViewHolder(binding);
+    @Override
+    public int getItemCount() {
+        return obatModelsList.size();
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull ObatAdapter.ViewHolder holder, int position) {
-//        ObatModels obatModels = filteredObatList.get(position);
-        ObatModels obatModels = obatModelsList.get(position);
+    public void onBindViewHolder(@NonNull ObatAdapter.viewHolder holder, int position) {
+        ObatModels obatModels = filteredObatList.get(position);
+//        ObatModels obatModels = obatModelsList.get(position);
+
+        holder.binding.tvNamaObat.setText(obatModelsList.get(position).getNamaObat());
+        holder.binding.tvStokObat.setText(String.valueOf(obatModelsList.get(position).getStokObat()));
+        holder.binding.tvHargaObat.setText(String.valueOf(obatModelsList.get(position).getHargaObat()));
+
+        Glide.with(holder.binding.getRoot())
+                .load(obatModelsList.get(position).getGambarObat())
+                .placeholder(R.drawable.no_image)
+                .into(holder.binding.ivGambarObat);
 
 //        holder.binding.tvNamaObat.setText(obatModels.getNamaObat());
 //        holder.binding.tvStokObat.setText("Stok " + obatModels.getStokObat());
-//
 //        DecimalFormat rupiahFormat = (DecimalFormat) DecimalFormat
 //                .getCurrencyInstance(new Locale("in", "ID"));
 //        holder.binding.tvHargaObat.setText(rupiahFormat.format(obatModels.getHargaObat()));
 
-        holder.binding.tvNamaObat.setText(obatModels.getNamaObat());
-        holder.binding.tvStokObat.setText(String.valueOf(obatModels.getStokObat()));
-        holder.binding.tvHargaObat.setText(String.valueOf(obatModels.getHargaObat()));
+//        holder.binding.tvNamaObat.setText(obatModels.getNamaObat());
+//        holder.binding.tvStokObat.setText(String.valueOf(obatModels.getStokObat()));
+//        holder.binding.tvHargaObat.setText(String.valueOf(obatModels.getHargaObat()));
 
-        Glide.with(holder.binding.getRoot())
-                .load(obatModels.getGambarObat())
-                .placeholder(R.drawable.no_image)
-                .into(holder.binding.ivGambarObat);
+//        Glide.with(holder.binding.getRoot())
+//                .load(obatModels.getGambarObat())
+//                .placeholder(R.drawable.no_image)
+//                .into(holder.binding.ivGambarObat);
 
         holder.binding.cvObat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,11 +102,6 @@ public class ObatAdapter extends RecyclerView.Adapter<ObatAdapter.ViewHolder>
                             ObatActivity.LAUNCH_ADD_ACTIVITY);
             }
         });
-    }
-
-    @Override
-    public int getItemCount() {
-        return obatModelsList.size();
     }
 
     @Override
