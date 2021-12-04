@@ -49,13 +49,13 @@ public class RegisterPresenterTest {
     @Test
     public void shouldShowErrorMessageWhenUmurIsLess3() throws
             Exception {
-        System.out.println("Testing Kedua: Inputan Nama Depan Kosong");
+        System.out.println("Testing Kedua: Umur tidak lebih dari 2 digit");
             when(view.getNama()).thenReturn("Juan");
         System.out.println( view.getNama());
         when(view.getUmur()).thenReturn("1235");
         System.out.println(view.getUmur());
         presenter.onRegisterClicked();
-        verify(view).showUmurError("Umur tidak lebih dari 3 digit");
+        verify(view).showUmurError("Umur tidak lebih dari 2 digit");
     }
 
     @Test
@@ -99,7 +99,7 @@ public class RegisterPresenterTest {
     @Test
     public void shouldShowErrorMessageWhenEmailIsNotInFormat() throws
             Exception {
-        System.out.println("Testing Keenam: Inputan Keenam Format tidak sesuai");
+        System.out.println("Testing Keenam: Inputan Keenam Format email tidak sesuai");
         when(view.getNama()).thenReturn("Juan");
         System.out.println( view.getNama());
         when(view.getUmur()).thenReturn("13");
@@ -118,7 +118,7 @@ public class RegisterPresenterTest {
         System.out.println( view.getNama());
         when(view.getUmur()).thenReturn("13");
         System.out.println(view.getUmur());
-        when(view.getEmail()).thenReturn("juanitochristian@gmail.com");
+        when(view.getEmail()).thenReturn("JuanitoChrist_09@gmail.com");
         System.out.println(view.getEmail());
         when(view.getJenisKelamin()).thenReturn("");
         System.out.println(view.getJenisKelamin());
