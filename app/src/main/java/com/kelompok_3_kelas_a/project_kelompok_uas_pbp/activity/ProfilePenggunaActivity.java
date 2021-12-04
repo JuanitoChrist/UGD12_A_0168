@@ -58,7 +58,7 @@ public class ProfilePenggunaActivity extends AppCompatActivity {
     private static final int GALLERY_PICTURE = 1;
     private static final String[] JENIS_KELAMIN_LIST = new String[]{"Laki-laki", "Perempuan"};
 
-    private EditText etNama, etUmur, etEmail, etPassword;
+    private EditText etNama, etUmur, etEmail, etPassword, et_jenis_kelamin;
     private ImageView ivGambar;
     private AutoCompleteTextView edJenisKelamin;
     private LinearLayout layoutLoading;
@@ -75,111 +75,17 @@ public class ProfilePenggunaActivity extends AppCompatActivity {
         etUmur = findViewById(R.id.et_umur);
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
-        edJenisKelamin = findViewById(R.id.ed_jenis_kelamin);
+        et_jenis_kelamin = findViewById(R.id.et_jenis_kelamin);
 
         ArrayAdapter<String> adapterJenisKelamin = new ArrayAdapter<>(this, R.layout.item_list_pengguna, JENIS_KELAMIN_LIST);
         edJenisKelamin.setAdapter(adapterJenisKelamin);
-//        long id = getInte
-//        getPenggunaById(id);
-//        ivGambar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                LayoutInflater layoutInflater = LayoutInflater.from(ProfilePenggunaActivity.this);
-//                View selectMediaView = layoutInflater
-//                        .inflate(R.layout.layout_select_media_pengguna, null);
-//
-//                final AlertDialog alertDialog = new AlertDialog
-//                        .Builder(selectMediaView.getContext()).create();
-//
-//                Button btnKamera = selectMediaView.findViewById(R.id.btn_kamera);
-//                Button btnGaleri = selectMediaView.findViewById(R.id.btn_galeri);
-//
-//                btnKamera.setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        if (checkSelfPermission(Manifest.permission.CAMERA) ==
-//                                PackageManager.PERMISSION_DENIED) {
-//                            String[] permission = {Manifest.permission.CAMERA};
-//                            requestPermissions(permission, PERMISSION_REQUEST_CAMERA);
-//                        } else {
-//                            // Membuka kamera
-//                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                            startActivityForResult(intent, CAMERA_REQUEST);
-//                        }
-//
-//                        alertDialog.dismiss();
-//                    }
-//                });
-//
-//                btnGaleri.setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        // Membuka galeri
-//                        Intent intent = new Intent(Intent.ACTION_PICK,
-//                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                        startActivityForResult(intent, GALLERY_PICTURE);
-//
-//                        alertDialog.dismiss();
-//                    }
-//                });
-//
-//                alertDialog.setView(selectMediaView);
-//                alertDialog.show();
-//            }
-//        });
-//
-//        Button btnCancel = findViewById(R.id.btn_cancel);
-//        btnCancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                finish();
-//            }
-//        });
-//
-//        Button btnSave = findViewById(R.id.btn_save);
-//        TextView tvTitle = findViewById(R.id.tv_title);
-//        long id = getIntent().getLongExtra("id", -1);
-
-//        if (id == -1) {
-////            tvTitle.setText(R.string.tambah_produk);
-//
-//            btnSave.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                      create
-//                }
-//            });
-//        } else {
-//        tvTitle.setText("Edit Profile");
-////            getPenggunaById(id);
-//
-//        btnSave.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                updateProfile(id);
-//            }
-//        });
-////        }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(ProfilePenggunaActivity.this, HalamanUtama.class));
-//        super.onBackPressed();
-//        Intent returnIntent = new Intent();
-//        setResult(RESULT_OK, returnIntent);
-//        finish();
     }
-
-//    private String bitmapToBase64(Bitmap bitmap) {
-//        // TODO: Tambahkan fungsi untuk mengkonversi bitmap dengan output Base64 string hasil
-//        //  konversi. Gunakan fungsi ini saat menambah atau mengedit data produk.
-//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-//        byte[] byteArray = byteArrayOutputStream .toByteArray();
-//        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-//
-//        return encoded;
-//    }
 
     private void getPenggunaById(long id) {
         setLoading(true);
@@ -197,12 +103,12 @@ public class ProfilePenggunaActivity extends AppCompatActivity {
                     String nama = object.optString("name");
                     String email = object.optString("email");
                     int umur = object.optInt("umur");
-                    String jenisKelammin = (object.optString("jenisKelamin"));
+                    String jenisKelamin = (object.optString("jenisKelamin"));
 
                     etNama.setText(nama);
                     etEmail.setText(email);
                     etUmur.setText(umur);
-                    edJenisKelamin.setText(jenisKelammin, false);
+                    edJenisKelamin.setText(jenisKelamin);
 
                     Toast.makeText(ProfilePenggunaActivity.this, object.getString("message"), Toast.LENGTH_SHORT).show();
                     setLoading(false);

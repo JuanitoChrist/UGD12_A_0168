@@ -7,7 +7,7 @@ public class PenggunaModels {
     private Long id;
     @SerializedName("name")
     private String nama;
-    private int umur;
+    private String umur;
     @SerializedName("email")
     private String email;
     @SerializedName("password")
@@ -16,9 +16,9 @@ public class PenggunaModels {
     private String jenisKelamin;
 //    private String gambar;
 
-    public PenggunaModels(String nama, int umur, String email, String password, String jenisKelamin) {
+    public PenggunaModels(String nama, String umur, String email, String password, String jenisKelamin) {
         this.nama = nama;
-        this.umur = umur;
+        this.setUmur(umur);
         this.email = email;
         this.jenisKelamin = jenisKelamin;
         this.setPassword(password);
@@ -50,14 +50,6 @@ public class PenggunaModels {
         this.nama = nama;
     }
 
-    public int getUmur() {
-        return umur;
-    }
-
-    public void setUmur(int umur) {
-        this.umur = umur;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -80,6 +72,14 @@ public class PenggunaModels {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUmur() {
+        return umur;
+    }
+
+    public void setUmur(String umur) {
+        this.umur = umur;
     }
 
 //    public String getGambar() {

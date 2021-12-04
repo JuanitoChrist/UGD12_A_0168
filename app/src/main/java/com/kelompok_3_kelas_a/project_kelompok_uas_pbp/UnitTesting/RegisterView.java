@@ -4,7 +4,7 @@ public interface RegisterView {
 
         String getNama();
         void showNamaError(String message);
-        Integer getUmur();
+        String getUmur();
         void showUmurError(String message);
         String getEmail();
         void showEmailError(String message);

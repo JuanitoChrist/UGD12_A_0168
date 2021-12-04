@@ -73,18 +73,22 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     private void createUser(){
         PenggunaModels penggunaModels = new PenggunaModels(
                 etNama.getText().toString(),
-                Integer.parseInt(etUmur.getText().toString()),
+               etUmur.getText().toString(),
                 etEmail.getText().toString(),
                 etPassword.getText().toString(),
                 et_jenis_kelamin.getText().toString());
         String nama = etNama.getText().toString();
+        String umur = etUmur.getText().toString();
         String email =  etEmail.getText().toString();
         String password = etPassword.getText().toString();
         String jenisKelamin = et_jenis_kelamin.getText().toString();
 
-        if (TextUtils.isEmpty(nama)){
+        if (TextUtils.isEmpty(nama)) {
             etNama.setError("Name cannot be empty");
             etNama.requestFocus();
+        }else if(TextUtils.isEmpty(umur)){
+            etUmur.setError("Umur cannot be empty");
+            etUmur.requestFocus();
         }else if(TextUtils.isEmpty(email)){
             etEmail.setError("Email cannot be empty");
             etEmail.requestFocus();
