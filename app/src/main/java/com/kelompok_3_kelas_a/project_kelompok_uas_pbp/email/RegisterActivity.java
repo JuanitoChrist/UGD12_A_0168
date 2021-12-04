@@ -42,8 +42,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     private static final String[] JENIS_KELAMIN_LIST = new String[]{"Laki-laki", "Perempuan"};
 
-    private EditText etNama, etUmur, etEmail, etPassword;
-    private AutoCompleteTextView edJenisKelamin;
+    private EditText etNama, etUmur, etEmail, etPassword, et_jenis_kelamin;
     private Button btnSave;
     private RequestQueue queue;
 
@@ -57,11 +56,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         etUmur = findViewById(R.id.et_umur);
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
-        edJenisKelamin = findViewById(R.id.ed_jenis_kelamin);
+        et_jenis_kelamin = findViewById(R.id.et_jenis_kelamin);
         btnSave = findViewById(R.id.btn_save);
 
-        ArrayAdapter<String> adapterJenisKelamin = new ArrayAdapter<>(this, R.layout.item_list_register, JENIS_KELAMIN_LIST);
-        edJenisKelamin.setAdapter(adapterJenisKelamin);
+//        ArrayAdapter<String> adapterJenisKelamin = new ArrayAdapter<>(this, R.layout.item_list_register, JENIS_KELAMIN_LIST);
+//        et_jenis_kelamin.setAdapter(adapterJenisKelamin);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,10 +76,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                 Integer.parseInt(etUmur.getText().toString()),
                 etEmail.getText().toString(),
                 etPassword.getText().toString(),
-                edJenisKelamin.getText().toString());
+                et_jenis_kelamin.getText().toString());
         String nama = etNama.getText().toString();
         String email =  etEmail.getText().toString();
         String password = etPassword.getText().toString();
+        String jenisKelamin = et_jenis_kelamin.getText().toString();
 
         if (TextUtils.isEmpty(nama)){
             etNama.setError("Name cannot be empty");
@@ -88,7 +88,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
         }else if(TextUtils.isEmpty(email)){
             etEmail.setError("Email cannot be empty");
             etEmail.requestFocus();
-        }else if(TextUtils.isEmpty(password)) {
+        }else if(TextUtils.isEmpty(jenisKelamin)){
+            et_jenis_kelamin.setError("Jenis Kelamin cannot be empty");
+            et_jenis_kelamin.requestFocus();
+        }
+        else if(TextUtils.isEmpty(password)) {
             etPassword.setError("Password can't be empty");
             etPassword.requestFocus();
         } else if(etUmur.getText().toString().isEmpty()) {
@@ -180,13 +184,13 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
 
     @Override
     public String getJenisKelamin() {
-        return edJenisKelamin.getText().toString();
+        return et_jenis_kelamin.getText().toString();
     }
 
     @Override
     public void showJenisKelaminError(String message) {
-        edJenisKelamin.setError(message);
-        edJenisKelamin.requestFocus();
+        et_jenis_kelamin.setError(message);
+        et_jenis_kelamin.requestFocus();
 
     }
 
