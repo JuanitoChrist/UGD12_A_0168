@@ -37,7 +37,7 @@ public class TransaksiObatAdapter extends RecyclerView.Adapter<TransaksiObatAdap
 
     public TransaksiObatAdapter(List<TransaksiObatModels> transaksiObatModelsList, Context context) {
         this.transaksiObatModelsList = transaksiObatModelsList;
-        filteredTransaksiObatList = new ArrayList<>(filteredTransaksiObatList);
+        filteredTransaksiObatList = new ArrayList<>(transaksiObatModelsList);
         this.context = context;
     }
 
