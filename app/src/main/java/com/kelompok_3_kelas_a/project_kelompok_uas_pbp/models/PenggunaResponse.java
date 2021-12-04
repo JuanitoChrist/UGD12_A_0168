@@ -7,7 +7,7 @@ import java.util.List;
 public class PenggunaResponse {
 
     private String message;
-    @SerializedName("pengguna")
+    @SerializedName("data")
     private List<PenggunaModels> penggunaList;
 
     public String getMessage() {

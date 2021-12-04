@@ -125,36 +125,36 @@ public class ProfilePenggunaActivity extends AppCompatActivity {
     private void getPenggunaById(long id) {
 //        setLoading(true);
         // Membuat request baru untuk mengambil data mahasiswa berdasarkan id
-        JsonObjectRequest stringRequest = new JsonObjectRequest(GET, RegisterUserApi.GET_BY_ID_URL + id,null, new Response.Listener<JSONObject>() {
+        StringRequest stringRequest = new StringRequest(GET, RegisterUserApi.GET_BY_ID_URL + id, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONObject response) {
-//                Gson gson = new Gson();
-// /* Deserialiasai data dari response JSON dari API
-// menjadi java object MahasiswaResponse menggunakan Gson */
-//                PenggunaResponse penggunaResponse = gson.fromJson(response, PenggunaResponse.class);
-//                PenggunaModels penggunaModels = penggunaResponse.getPenggunaList().get(1);
-//                etNama.setText(penggunaModels.getNama());
-//                etEmail.setText(penggunaModels.getEmail());
-//                etUmur.setText(penggunaModels.getUmur());
-//                et_jenis_kelamin.setText(penggunaModels.getJenisKelamin());
-                try {
-                    JSONObject object = response.getJSONObject("user");
-//                    String nama = object.optString("name");
-//                    String email = object.optString("email");
-//                    String umur = object.optString("umur");
-//                    String jenisKelamin = (object.optString("jenisKelamin"));
-
-                    etNama.setText(object.optString("name"));
-                    etEmail.setText(object.optString("email"));
-                    etUmur.setText(object.optString("umur"));
-                    etEmail.setText(object.optString("email"));
-                    et_jenis_kelamin.setText(object.optString("jenisKelamin"));
-
-                    Toast.makeText(ProfilePenggunaActivity.this, object.getString("message"), Toast.LENGTH_SHORT).show();
-//                    setLoading(false);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            public void onResponse(String response) {
+                Gson gson = new Gson();
+ /* Deserialiasai data dari response JSON dari API
+ menjadi java object MahasiswaResponse menggunakan Gson */
+                PenggunaResponse penggunaResponse = gson.fromJson(response, PenggunaResponse.class);
+                PenggunaModels penggunaModels = penggunaResponse.getPenggunaList().get(0);
+                etNama.setText(penggunaModels.getNama());
+                etEmail.setText(penggunaModels.getEmail());
+                etUmur.setText(penggunaModels.getUmur());
+                et_jenis_kelamin.setText(penggunaModels.getJenisKelamin());
+//                try {
+//                    JSONObject object = response.getJSONObject("user");
+////                    String nama = object.optString("name");
+////                    String email = object.optString("email");
+////                    String umur = object.optString("umur");
+////                    String jenisKelamin = (object.optString("jenisKelamin"));
+//
+//                    etNama.setText(object.optString("name"));
+//                    etEmail.setText(object.optString("email"));
+//                    etUmur.setText(object.optString("umur"));
+//                    etEmail.setText(object.optString("email"));
+//                    et_jenis_kelamin.setText(object.optString("jenisKelamin"));
+//
+//                    Toast.makeText(ProfilePenggunaActivity.this, object.getString("message"), Toast.LENGTH_SHORT).show();
+////                    setLoading(false);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
 
             }
         }, new Response.ErrorListener() {
