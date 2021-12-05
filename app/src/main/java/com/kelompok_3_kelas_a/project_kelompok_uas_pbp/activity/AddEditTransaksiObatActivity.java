@@ -129,14 +129,13 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
         } else {
             tvTitle.setText(R.string.edit_transaksiObat);
             int idTransaksi = getIntent().getIntExtra("idTransaksi", -1);
-            Log.i("gustana","" + idTransaksi);
 
             getTransaksiObatById(idTransaksi);
 
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    updateTransakiObat(idUserPref);
+                    updateTransakiObat(idTransaksi);
                 }
             });
         }
@@ -263,8 +262,9 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
         }
     }
 
-    private void updateTransakiObat(long idUserPref){
+    private void updateTransakiObat(int id){
         setLoading(true);
+        total = Double.parseDouble(tv_hargaObatTransaksi.getText().toString()) * Double.parseDouble(et_jumlahBeliTransaksi.getText().toString());
 
         try{
             TransaksiObatModels transaksiObatModels = new TransaksiObatModels(
@@ -273,9 +273,9 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
                     et_alamatPembeli.getText().toString(),
                     et_umurPembeli.getText().toString(),
                     Integer.parseInt(et_jumlahBeliTransaksi.getText().toString()),
-                    obatDipilih.getIdObat());
+                    obatDipilih.getIdObat(), total);
 
-            StringRequest stringRequest = new StringRequest(PUT, TransaksiObatApi.UPDATE_URL + idUserPref, new Response.Listener<String>() {
+            StringRequest stringRequest = new StringRequest(PUT, TransaksiObatApi.UPDATE_URL + id, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Gson gson = new Gson();

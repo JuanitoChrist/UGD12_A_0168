@@ -1,8 +1,12 @@
 package com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class PendaftaranModels {
 
-    private Long id;
+    @SerializedName("id")
+    private Integer id;
+    private Integer idUser;
     private String namaPendaftar, tanggalLahirPendaftar,
             nomorHPPendaftar, tanggalPeriksaPendaftar, jenisKelaminPendaftar,
             keluhanPendaftar;
@@ -17,11 +21,11 @@ public class PendaftaranModels {
         this.keluhanPendaftar = keluhanPendaftar;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

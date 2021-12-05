@@ -136,10 +136,8 @@ public class TransaksiObatActivity extends AppCompatActivity {
                 try {
                     String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                     JSONObject errors = new JSONObject(responseBody);
-                    Toast.makeText(TransaksiObatActivity.this, "error", Toast.LENGTH_SHORT).show();
                     Toast.makeText(TransaksiObatActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
-                    Toast.makeText(TransaksiObatActivity.this, "error 2", Toast.LENGTH_SHORT).show();
                     Toast.makeText(TransaksiObatActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }

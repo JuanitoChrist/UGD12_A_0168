@@ -36,6 +36,7 @@ import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PendaftaranRespons
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaModels;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.preferences.userPreferences;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
@@ -91,9 +92,9 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
 
         Button btnSave = findViewById(R.id.btn_savePendaftaran);
         TextView tvTitle = findViewById(R.id.tv_title_pendaftaran);
-        long id = getIntent().getLongExtra("id", -1);
+        int id = getIntent().getIntExtra("lemparId", -1);
 
-        if (id == -1) {
+        if (id == 0) {
             tvTitle.setText(R.string.tambah_pendaftaran);
 
             btnSave.setOnClickListener(new View.OnClickListener() {
@@ -104,12 +105,13 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
             });
         } else {
             tvTitle.setText(R.string.edit_pendaftaran);
-            getPendaftaranById(id);
+            int idDaftar = getIntent().getIntExtra("id", -1);
+            getPendaftaranById(idDaftar);
 
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    updatePendaftaran(id);
+                    updatePendaftaran(idDaftar);
                 }
             });
         }
@@ -121,26 +123,40 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
         startActivity(new Intent(AddEditPendaftaranActivity.this, HalamanPendaftaran.class));
     }
 
-    private void getPendaftaranById(long id){
+    private void getPendaftaranById(int id){
         setLoading(true);
-
-        StringRequest stringRequest = new StringRequest(GET, PendaftaranApi.GET_BY_ID_URL + idUserPref, new Response.Listener<String>() {
+        Toast.makeText(AddEditPendaftaranActivity.this, String.valueOf(id), Toast.LENGTH_SHORT).show();
+        StringRequest stringRequest = new StringRequest(GET, PendaftaranApi.GET_BY_ID_URL + id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
 
-                PendaftaranResponse2 pendaftaranResponse2 = gson.fromJson(response, PendaftaranResponse2.class);
-                PendaftaranModels pendaftaranModels = pendaftaranResponse2.getPendaftaranModelsList().get(0);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject object = jsonObject.getJSONObject("data");
 
-                et_namaPendaftar.setText(pendaftaranModels.getNamaPendaftar());
-                et_tanggalLahir_Pendaftar.setText(pendaftaranModels.getTanggalLahirPendaftar());
-                et_nomor_hp_pendaftar.setText(pendaftaranModels.getNomorHPPendaftar());
-//                et_tanggalPeriksa_pendaftar.setText(pendaftaranModels.getTanggalPeriksaPendaftar());
+                    et_namaPendaftar.setText(object.getString("namaPendaftar"));
+                    et_tanggalLahir_Pendaftar.setText(object.getString("tanggalLahirPendaftar"));
+                    et_nomor_hp_pendaftar.setText(object.getString("nomorHPPendaftar"));
+                    ed_jenisKelamin_pendaftar.setText(object.getString("jenisKelaminPendaftar"), false);
+                    ed_keluhan_pendaftar.setText(object.getString("keluhanPendaftar"), false);
 
-                ed_keluhan_pendaftar.setText(pendaftaranModels.getKeluhanPendaftar(), false);
-                ed_jenisKelamin_pendaftar.setText(pendaftaranModels.getJenisKelaminPendaftar(), false);
-
-                Toast.makeText(AddEditPendaftaranActivity.this, pendaftaranResponse2.getMessage(), Toast.LENGTH_SHORT).show();
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+//
+//                PendaftaranResponse2 pendaftaranResponse2 = gson.fromJson(response, PendaftaranResponse2.class);
+//                PendaftaranModels pendaftaranModels = pendaftaranResponse2.getPendaftaranModelsList().get(0);
+//
+//                et_namaPendaftar.setText(pendaftaranModels.getNamaPendaftar());
+//                et_tanggalLahir_Pendaftar.setText(pendaftaranModels.getTanggalLahirPendaftar());
+//                et_nomor_hp_pendaftar.setText(pendaftaranModels.getNomorHPPendaftar());
+////                et_tanggalPeriksa_pendaftar.setText(pendaftaranModels.getTanggalPeriksaPendaftar());
+//
+//                ed_keluhan_pendaftar.setText(pendaftaranModels.getKeluhanPendaftar(), false);
+//                ed_jenisKelamin_pendaftar.setText(pendaftaranModels.getJenisKelaminPendaftar(), false);
+//
+                Toast.makeText(AddEditPendaftaranActivity.this, "Berhasil Ambil Data", Toast.LENGTH_SHORT).show();
 
                 setLoading(false);
             }
@@ -233,7 +249,7 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
         }
     }
 
-    private void updatePendaftaran(long id){
+    private void updatePendaftaran(int id){
         setLoading(true);
 
         try{

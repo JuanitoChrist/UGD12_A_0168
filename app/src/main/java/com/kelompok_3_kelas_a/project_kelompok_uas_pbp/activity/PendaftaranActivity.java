@@ -89,14 +89,14 @@ public class PendaftaranActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fabAdd = findViewById(R.id.fab_add);
-        fabAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(PendaftaranActivity.this, AddEditPendaftaranActivity.class);
-                startActivityForResult(i, LAUNCH_ADD_ACTIVITY);
-            }
-        });
+//        FloatingActionButton fabAdd = findViewById(R.id.fab_add);
+//        fabAdd.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(PendaftaranActivity.this, AddEditPendaftaranActivity.class);
+//                startActivityForResult(i, LAUNCH_ADD_ACTIVITY);
+//            }
+//        });
 
         RecyclerView rvPendaftaran = findViewById(R.id.rv_Pendaftaran);
         adapter = new PendaftaranAdapter(new ArrayList<>(), this);

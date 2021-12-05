@@ -10,6 +10,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -101,6 +102,7 @@ public class PendaftaranAdapter extends RecyclerView.Adapter<PendaftaranAdapter.
             public void onClick(View view) {
                 Intent i = new Intent(context, AddEditPendaftaranActivity.class);
                 i.putExtra("id", pendaftaranModels.getId());
+                i.putExtra("lemparId",1);
 
                 if (context instanceof PendaftaranActivity)
                     ((PendaftaranActivity) context).startActivityForResult(i,
