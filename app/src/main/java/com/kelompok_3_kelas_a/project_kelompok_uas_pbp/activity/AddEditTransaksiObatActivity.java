@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -26,6 +27,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.HalamanUtama;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.TransaksiObatApi;
@@ -36,12 +38,18 @@ import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.TransaksiObatModel
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.TransaksiObatResponse;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.TransaksiObatResponse2;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.preferences.userPreferences;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 public class AddEditTransaksiObatActivity extends AppCompatActivity {
 
@@ -67,10 +75,10 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_edit_transaksi_obat);
         setTitle(" ");
 
+        queue = Volley.newRequestQueue(this);
         obatModelsArrayList = new ObatList().ObatModels;
         tampungIdObat = getIntent().getIntExtra("id", 0);
 
-        queue = Volley.newRequestQueue(this);
         tv_namaObatTransaksi = findViewById(R.id.tv_namaObatTransaksi);
         tv_hargaObatTransaksi = findViewById(R.id.tv_hargaObatTransaksi);
 
@@ -121,6 +129,8 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
         } else {
             tvTitle.setText(R.string.edit_transaksiObat);
             int idTransaksi = getIntent().getIntExtra("idTransaksi", -1);
+            Log.i("gustana","" + idTransaksi);
+
             getTransaksiObatById(idTransaksi);
 
             btnSave.setOnClickListener(new View.OnClickListener() {
@@ -148,17 +158,21 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 Gson gson = new Gson();
 
-//                TransaksiObatResponse2 transaksiObatResponse2 = gson.fromJson(response, TransaksiObatResponse2.class);
-                TransaksiObatModels transaksiObatModels = gson.fromJson(response, TransaksiObatResponse2.class).getTransaksiObatModelsList().get(0);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    Log.i("jsonobject", "onResponse: "+jsonObject.toString());
+                    JSONObject obj1 = jsonObject.getJSONObject("data");
 
-                et_namaPembeliTransaksi.setText(transaksiObatModels.getNamaPembeli());
-                et_nomorHP_pembeli.setText(transaksiObatModels.getNomorHpPembeli());
-                et_alamatPembeli.setText(transaksiObatModels.getAlamatPembeli());
-                et_umurPembeli.setText(transaksiObatModels.getUmurPembeli());
-                et_jumlahBeliTransaksi.setText(String.valueOf(transaksiObatModels.getJumlahBeli()));
+                    et_namaPembeliTransaksi.setText(obj1.getString("namaPembeli"));
+                    et_nomorHP_pembeli.setText(obj1.getString("nomorHpPembeli"));
+                    et_alamatPembeli.setText(obj1.getString("alamatPembeli"));
+                    et_umurPembeli.setText(obj1.getString("umurPembeli"));
+                    et_jumlahBeliTransaksi.setText(String.valueOf(obj1.getString("jumlahBeli")));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 Toast.makeText(AddEditTransaksiObatActivity.this,"Transaksi Berhasil Ambil Data", Toast.LENGTH_SHORT).show();
-
                 setLoading(false);
             }
         }, new Response.ErrorListener() {

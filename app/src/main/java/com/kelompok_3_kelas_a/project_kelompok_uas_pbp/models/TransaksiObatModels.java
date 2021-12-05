@@ -6,6 +6,7 @@ public class TransaksiObatModels {
 
     @SerializedName("id")
     private Integer idTransaksiObat;
+    private Integer idUser;
     private ObatModels obatModels;
     private String namaPembeli, nomorHpPembeli, alamatPembeli, umurPembeli;
     private Integer jumlahBeli;
