@@ -156,7 +156,7 @@ public class TransaksiObatActivity extends AppCompatActivity {
     public void deleteTransaksiObat(long id) {
         setLoading(true);
 
-        StringRequest stringRequest = new StringRequest(DELETE, TransaksiObatApi.DELETE_URL + id, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(DELETE, PendaftaranApi.DELETE_URL + id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
