@@ -103,30 +103,17 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     NetworkResponse networkResponse = error.networkResponse;
-                    Toast.makeText(LoginActivity.this, email, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(LoginActivity.this, password, Toast.LENGTH_SHORT).show();
                     if (networkResponse != null && networkResponse.data != null)
                     {
                         String jsonError = new String(networkResponse.data);
                         Toast.makeText(LoginActivity.this, jsonError, Toast.LENGTH_SHORT).show();
                     }else{
-                        Toast.makeText(LoginActivity.this, "hai", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "here", Toast.LENGTH_SHORT).show();
                     }
-//                    try {
-//                        String responseBody = new String(error.networkResponse.data, StandardCharsets.UTF_8);
-//                        JSONObject errors = new JSONObject(responseBody);
-//                        Toast.makeText(LoginActivity.this, errors.getString("message"), Toast.LENGTH_SHORT).show();
-//                    } catch (Exception e) {
-//                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
+//
                 }
             }){
-//                @Override
-//                public Map<String, String> getHeaders() throws AuthFailureError {
-//                    HashMap<String, String> headers = new HashMap<String, String>();
-//                    headers.put("Accept", "application/json");
-//                    return headers;
-//                }
+//
 
                 @Override
                 protected Map<String, String> getParams()

@@ -120,7 +120,6 @@ public class TransaksiObatActivity extends AppCompatActivity {
                 Gson gson = new Gson();
                 TransaksiObatResponse2 transaksiObatResponse2 = gson.fromJson(response, TransaksiObatResponse2.class);
 
-                Toast.makeText(TransaksiObatActivity.this, String.valueOf(transaksiObatResponse2.getTransaksiObatModelsList().get(0).getIdTransaksiObat()), Toast.LENGTH_SHORT).show();
                 adapter.setTransaksiObatModelsList(transaksiObatResponse2.getTransaksiObatModelsList());
                 adapter.getFilter().filter(sv_transaksiObat.getQuery());
 

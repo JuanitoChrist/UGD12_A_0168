@@ -104,7 +104,6 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
 
         tv_namaObatTransaksi.setText(obatDipilih.getNamaObat());
         tv_hargaObatTransaksi.setText(obatDipilih.getHargaObat().toString());
-//        Toast.makeText(AddEditTransaksiObatActivity.this, String.valueOf(tampungIdObat), Toast.LENGTH_SHORT).show();
         Button btnCancel = findViewById(R.id.btn_cancelTransaksiObat);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +115,6 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
         Button btnSave = findViewById(R.id.btn_saveTransaksiObat);
         TextView tvTitle = findViewById(R.id.tv_titleTransaksiObat);
         int id = getIntent().getIntExtra("lemparId", -1);
-//        Toast.makeText(AddEditTransaksiObatActivity.this, String.valueOf(id), Toast.LENGTH_SHORT).show();
         if (id == 0) {
             tvTitle.setText(R.string.tambah_transaksiObat);
 

@@ -94,7 +94,7 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
         TextView tvTitle = findViewById(R.id.tv_title_pendaftaran);
         int id = getIntent().getIntExtra("lemparId", -1);
 
-        if (id == 0) {
+        if (id == -1) {
             tvTitle.setText(R.string.tambah_pendaftaran);
 
             btnSave.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +125,6 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
 
     private void getPendaftaranById(int id){
         setLoading(true);
-        Toast.makeText(AddEditPendaftaranActivity.this, String.valueOf(id), Toast.LENGTH_SHORT).show();
         StringRequest stringRequest = new StringRequest(GET, PendaftaranApi.GET_BY_ID_URL + id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -192,8 +191,8 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
                     et_tanggalLahir_Pendaftar.getText().toString(),
                     et_nomor_hp_pendaftar.getText().toString(),
 //                    et_tanggalPeriksa_pendaftar.getText().toString(),
-                    ed_keluhan_pendaftar.getText().toString(),
-                    ed_jenisKelamin_pendaftar.getText().toString());
+                    ed_jenisKelamin_pendaftar.getText().toString(),
+                    ed_keluhan_pendaftar.getText().toString());
 
             StringRequest stringRequest = new StringRequest(POST, PendaftaranApi.ADD_URL + idUserPref, new Response.Listener<String>() {
                 @Override
@@ -202,9 +201,9 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
 
                     PendaftaranResponse pendaftaranResponse = gson.fromJson(response, PendaftaranResponse.class);
                     Toast.makeText(AddEditPendaftaranActivity.this, pendaftaranResponse.getMessage(), Toast.LENGTH_SHORT).show();
-
-                    Intent returnIntent = new Intent();
-                    setResult(Activity.RESULT_OK, returnIntent);
+                    startActivity(new Intent(AddEditPendaftaranActivity.this, HalamanPendaftaran.class));
+//                    Intent returnIntent = new Intent();
+//                    setResult(Activity.RESULT_OK, returnIntent);
                     finish();
                     setLoading(false);
                 }
