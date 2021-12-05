@@ -57,7 +57,7 @@ public class RegisterActivityTest3 {
                                 childAtPosition(
                                         withId(R.id.layout_nama),
                                         0),
-                                1)));
+                                0)));
         textInputEditText.perform(scrollTo(), click());
 
         ViewInteraction textInputEditText2 = onView(
@@ -66,7 +66,7 @@ public class RegisterActivityTest3 {
                                 childAtPosition(
                                         withId(R.id.layout_nama),
                                         0),
-                                1)));
+                                0)));
         textInputEditText2.perform(scrollTo(), replaceText("juan"), closeSoftKeyboard());
 
         ViewInteraction materialButton2 = onView(
@@ -86,7 +86,7 @@ public class RegisterActivityTest3 {
                                 childAtPosition(
                                         withId(R.id.layout_umur),
                                         0),
-                                1)));
+                                0)));
         textInputEditText3.perform(scrollTo(), click());
 
         ViewInteraction textInputEditText4 = onView(
@@ -95,7 +95,7 @@ public class RegisterActivityTest3 {
                                 childAtPosition(
                                         withId(R.id.layout_umur),
                                         0),
-                                1)));
+                                0)));
         textInputEditText4.perform(scrollTo(), replaceText("123"), closeSoftKeyboard());
 
         ViewInteraction materialButton3 = onView(
@@ -115,7 +115,7 @@ public class RegisterActivityTest3 {
                                 childAtPosition(
                                         withId(R.id.layout_umur),
                                         0),
-                                1)));
+                                0)));
         textInputEditText5.perform(scrollTo(), replaceText("12"));
 
         ViewInteraction textInputEditText6 = onView(
@@ -124,7 +124,7 @@ public class RegisterActivityTest3 {
                                 childAtPosition(
                                         withId(R.id.layout_umur),
                                         0),
-                                1),
+                                0),
                         isDisplayed()));
         textInputEditText6.perform(closeSoftKeyboard());
 
@@ -145,8 +145,8 @@ public class RegisterActivityTest3 {
                                 childAtPosition(
                                         withId(R.id.layout_email),
                                         0),
-                                1)));
-        textInputEditText7.perform(scrollTo(), replaceText("juan"), closeSoftKeyboard());
+                                0)));
+        textInputEditText7.perform(scrollTo(), replaceText("juanitochristian@gmail.com"), closeSoftKeyboard());
 
         ViewInteraction materialButton5 = onView(
                 allOf(withId(R.id.btn_save), withText("simpan"),
@@ -165,7 +165,7 @@ public class RegisterActivityTest3 {
                                 childAtPosition(
                                         withId(R.id.layout_jenis_kelamin),
                                         0),
-                                1)));
+                                0)));
         textInputEditText8.perform(scrollTo(), replaceText("Laki-laki"), closeSoftKeyboard());
 
         ViewInteraction materialButton6 = onView(
@@ -185,7 +185,7 @@ public class RegisterActivityTest3 {
                                 childAtPosition(
                                         withId(R.id.layout_password),
                                         0),
-                                1)));
+                                0)));
         textInputEditText9.perform(scrollTo(), replaceText("123"), closeSoftKeyboard());
 
         ViewInteraction materialButton7 = onView(
