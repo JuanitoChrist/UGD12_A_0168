@@ -146,7 +146,7 @@ public class RegisterActivityTest0168 {
                                         withId(R.id.layout_email),
                                         0),
                                 0)));
-        textInputEditText7.perform(scrollTo(), replaceText("juan.makan.mendoan@gmail.com"), closeSoftKeyboard());
+        textInputEditText7.perform(scrollTo(), replaceText("juanitochristian@gmail.com"), closeSoftKeyboard());
 
         ViewInteraction materialButton5 = onView(
                 allOf(withId(R.id.btn_save), withText("simpan"),
