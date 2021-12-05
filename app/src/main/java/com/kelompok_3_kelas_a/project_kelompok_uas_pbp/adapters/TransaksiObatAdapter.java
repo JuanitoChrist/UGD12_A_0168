@@ -43,19 +43,22 @@ public class TransaksiObatAdapter extends RecyclerView.Adapter<TransaksiObatAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_namaTransaksiObat, tv_hargaTransaksiObat, tv_totalBeliObat, tv_totalBiayaTransaksiObat;
+        TextView tv_namaPembeliTransaksiObat, tv_nomorHP_PembeliTransaksiObat,
+                tv_alamat_PembeliTransaksiObat, tv_umur_PembeliTransaksiObat,
+                tv_totalBeliObat, tv_totalBiayaTransaksiObat;
         CardView cv_transaksiObat;
-        ImageView iv_gambarTransaksiObat;
         ImageButton btn_deleteTransaksiObat;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tv_namaTransaksiObat = itemView.findViewById(R.id.tv_namaTransaksiObat);
-            tv_hargaTransaksiObat = itemView.findViewById(R.id.tv_hargaTransaksiObat);
+            tv_namaPembeliTransaksiObat = itemView.findViewById(R.id.tv_namaPembeliTransaksiObat);
+            tv_nomorHP_PembeliTransaksiObat = itemView.findViewById(R.id.tv_nomorHP_PembeliTransaksiObat);
+            tv_alamat_PembeliTransaksiObat = itemView.findViewById(R.id.tv_alamat_PembeliTransaksiObat);
+            tv_umur_PembeliTransaksiObat = itemView.findViewById(R.id.tv_umur_PembeliTransaksiObat);
             tv_totalBeliObat = itemView.findViewById(R.id.tv_totalBeliObat);
             tv_totalBiayaTransaksiObat = itemView.findViewById(R.id.tv_totalBiayaTransaksiObat);
-//            iv_gambarTransaksiObat = itemView.findViewById(R.id.iv_gambarTransaksiObat);
+
             cv_transaksiObat = itemView.findViewById(R.id.cv_transaksiObat);
             btn_deleteTransaksiObat = itemView.findViewById(R.id.btn_deleteTransaksiObat);
         }
@@ -74,18 +77,13 @@ public class TransaksiObatAdapter extends RecyclerView.Adapter<TransaksiObatAdap
     public void onBindViewHolder(@NonNull TransaksiObatAdapter.ViewHolder holder, int position) {
         TransaksiObatModels transaksiObatModels = filteredTransaksiObatList.get(position);
 
-        holder.tv_namaTransaksiObat.setText(transaksiObatModels.getNamaPembeli());
-        holder.tv_totalBeliObat.setText("Total Beli: " + transaksiObatModels.getJumlahBeli());
+        holder.tv_namaPembeliTransaksiObat.setText(transaksiObatModels.getNamaPembeli());
+        holder.tv_nomorHP_PembeliTransaksiObat.setText(transaksiObatModels.getNomorHpPembeli());
+        holder.tv_alamat_PembeliTransaksiObat.setText(transaksiObatModels.getAlamatPembeli());
+        holder.tv_umur_PembeliTransaksiObat.setText(transaksiObatModels.getUmurPembeli());
 
-//        DecimalFormat rupiahFormat = (DecimalFormat) DecimalFormat
-//                .getCurrencyInstance(new Locale("in", "ID"));
-//        holder.tv_hargaTransaksiObat.setText(String.valueOf(transaksiObatModels.getObatModels().getHargaObat()));
+        holder.tv_totalBeliObat.setText(String.valueOf(transaksiObatModels.getJumlahBeli()));
         holder.tv_totalBiayaTransaksiObat.setText(String.valueOf(transaksiObatModels.getTotalBayarObat()));
-
-//        Glide.with(context)
-//                .load(transaksiObatModels.getObatModels().getGambarObat())
-//                .placeholder(R.drawable.no_image)
-//                .into(holder.iv_gambarTransaksiObat);
 
         holder.btn_deleteTransaksiObat.setOnClickListener(new View.OnClickListener() {
             @Override

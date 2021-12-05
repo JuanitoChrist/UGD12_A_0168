@@ -23,29 +23,139 @@
             android:orientation="vertical"
             android:padding="12dp">
 
-            <TextView
-                android:id="@+id/tv_namaTransaksiObat"
-                style="@style/TextAppearance.MaterialComponents.Body2"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:text="Nama Obat" />
-
-            <TextView
-                android:id="@+id/tv_totalBeliObat"
-                style="@style/TextAppearance.MaterialComponents.Body2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="6dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="Stok 99" />
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:layout_weight="1"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Nama Pembeli: "
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_namaPembeliTransaksiObat"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:text="88"
+                    android:textSize="15sp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="6dp"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:layout_weight="1"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Nomor HP Pembeli: "
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_nomorHP_PembeliTransaksiObat"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:text="88"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:text="Alamat Pembeli: "
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_alamat_PembeliTransaksiObat"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:text="Jalan"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="6dp"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:layout_weight="1"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Umur Pembeli: "
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_umur_PembeliTransaksiObat"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:layout_marginTop="5dp"
+                    android:ellipsize="end"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:text="88"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="24dp"
                 android:layout_weight="1"
                 android:gravity="bottom"
                 android:orientation="horizontal">
@@ -59,11 +169,11 @@
                     android:layout_marginTop="5dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="Biaya Satuan: "
+                    android:text="Jumlah Beli: "
                     android:textSize="15sp" />
 
                 <TextView
-                    android:id="@+id/tv_hargaTransaksiObat"
+                    android:id="@+id/tv_totalBeliObat"
                     style="@style/TextAppearance.MaterialComponents.Body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -72,9 +182,8 @@
                     android:ellipsize="end"
                     android:layout_weight="1"
                     android:maxLines="1"
-                    android:text="Rp99.999.999"
+                    android:text="88"
                     android:textSize="15sp" />
-
             </LinearLayout>
 
             <LinearLayout
