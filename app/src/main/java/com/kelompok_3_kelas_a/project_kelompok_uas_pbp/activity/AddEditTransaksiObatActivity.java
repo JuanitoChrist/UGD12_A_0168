@@ -88,13 +88,13 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
         idUserPref = penggunaModels.getId();
 
         setObatDipilih();
-        Glide.with(AddEditTransaksiObatActivity.this)
-                .load(obatDipilih.getGambarObat())
-                .centerCrop()
-                .into(iv_gambarTransaksiObat);
+//        Glide.with(AddEditTransaksiObatActivity.this)
+//                .load(obatDipilih.getGambarObat())
+//                .centerCrop()
+//                .into(iv_gambarTransaksiObat);
 
-        tv_namaObatTransaksi.setText(obatDipilih.getNamaObat());
-        tv_hargaObatTransaksi.setText(obatDipilih.getHargaObat().toString());
+//        tv_namaObatTransaksi.setText(obatDipilih.getNamaObat());
+//        tv_hargaObatTransaksi.setText(obatDipilih.getHargaObat().toString());
 
         Button btnCancel = findViewById(R.id.btn_cancelTransaksiObat);
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +124,7 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    updateTransakiObat(id);
+                    updateTransakiObat(idUserPref);
                 }
             });
         }
@@ -247,7 +247,7 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
         }
     }
 
-    private void updateTransakiObat(long id){
+    private void updateTransakiObat(long idUserPref){
         setLoading(true);
 
         try{
@@ -259,7 +259,7 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
                     Integer.parseInt(et_jumlahBeliTransaksi.getText().toString()),
                     obatDipilih.getIdObat());
 
-            StringRequest stringRequest = new StringRequest(PUT, TransaksiObatApi.UPDATE_URL + id, new Response.Listener<String>() {
+            StringRequest stringRequest = new StringRequest(PUT, TransaksiObatApi.UPDATE_URL + idUserPref, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Gson gson = new Gson();
