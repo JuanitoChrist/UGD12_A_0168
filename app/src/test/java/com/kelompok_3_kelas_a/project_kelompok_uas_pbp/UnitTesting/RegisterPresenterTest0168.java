@@ -142,6 +142,26 @@ public class RegisterPresenterTest0168 {
     }
 
     @Test
+    public void shouldShowErrorMessageWhenPasswordIsNotMore3Words() throws
+            Exception {
+        System.out.println("Testing Kesembilan : Password Minimal 4 Huruf");
+        when(view.getNama()).thenReturn("Juan");
+        System.out.println( view.getNama());
+        when(view.getUmur()).thenReturn("13");
+        System.out.println(view.getUmur());
+        when(view.getEmail()).thenReturn("juanitochristian@gmail.com");
+        System.out.println(view.getEmail());
+        when(view.getJenisKelamin()).thenReturn("Laki-laki");
+        System.out.println(view.getJenisKelamin());
+        when(view.getPassword()).thenReturn("juanito1234");
+        System.out.println(view.getPassword());
+        presenter.onRegisterClicked();
+        verify(view).showPasswordError("Password maksimal 10 huruf");
+    }
+
+
+
+    @Test
     public void shouldShowErrorMessageWhenPasswordIsEmpty() throws
             Exception {
         System.out.println("Testing Kedelepan: Password kosong");
@@ -158,6 +178,11 @@ public class RegisterPresenterTest0168 {
         presenter.onRegisterClicked();
         verify(view).showPasswordError("Password tidak boleh kosong");
     }
+
+
+
+
+
 
 
 

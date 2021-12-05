@@ -33,7 +33,7 @@ import org.junit.runner.RunWith;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class RegisterActivityTest3 {
+public class RegisterActivityTest0168 {
 
     @Rule
     public ActivityTestRule<RegisterActivity> mActivityTestRule = new ActivityTestRule<>(RegisterActivity.class);
