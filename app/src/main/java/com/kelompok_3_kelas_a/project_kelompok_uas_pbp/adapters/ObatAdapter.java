@@ -97,6 +97,7 @@ public class ObatAdapter extends RecyclerView.Adapter<ObatAdapter.viewHolder>
             public void onClick(View view) {
                 Intent i = new Intent(context, AddEditTransaksiObatActivity.class);
                 i.putExtra("id", obatModels.getIdObat());
+                i.putExtra("lemparId", 0);
 
                 if (context instanceof ObatActivity)
                     ((ObatActivity) context).startActivityForResult(i,

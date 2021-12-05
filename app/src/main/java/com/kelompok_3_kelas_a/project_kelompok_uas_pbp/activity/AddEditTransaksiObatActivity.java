@@ -34,6 +34,7 @@ import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.ObatModels;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaModels;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.TransaksiObatModels;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.TransaksiObatResponse;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.TransaksiObatResponse2;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.preferences.userPreferences;
 import org.json.JSONObject;
 
@@ -95,7 +96,7 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
 
         tv_namaObatTransaksi.setText(obatDipilih.getNamaObat());
         tv_hargaObatTransaksi.setText(obatDipilih.getHargaObat().toString());
-
+//        Toast.makeText(AddEditTransaksiObatActivity.this, String.valueOf(tampungIdObat), Toast.LENGTH_SHORT).show();
         Button btnCancel = findViewById(R.id.btn_cancelTransaksiObat);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,9 +107,9 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
 
         Button btnSave = findViewById(R.id.btn_saveTransaksiObat);
         TextView tvTitle = findViewById(R.id.tv_titleTransaksiObat);
-        long id = getIntent().getLongExtra("id", -1);
-
-        if (id == -1) {
+        int id = getIntent().getIntExtra("lemparId", -1);
+//        Toast.makeText(AddEditTransaksiObatActivity.this, String.valueOf(id), Toast.LENGTH_SHORT).show();
+        if (id == 0) {
             tvTitle.setText(R.string.tambah_transaksiObat);
 
             btnSave.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +120,8 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
             });
         } else {
             tvTitle.setText(R.string.edit_transaksiObat);
-            getTransaksiObatById(id);
+            int idTransaksi = getIntent().getIntExtra("idTransaksi", -1);
+            getTransaksiObatById(idTransaksi);
 
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -138,16 +140,16 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
         }
     }
 
-    private void getTransaksiObatById(long id){
+    private void getTransaksiObatById(int id){
         setLoading(true);
 
-        StringRequest stringRequest = new StringRequest(GET, TransaksiObatApi.GET_BY_ID_URL + idUserPref, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(GET, TransaksiObatApi.GET_BY_ID_URL + idUserPref + "/" + 0, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
 
-                TransaksiObatResponse transaksiObatResponse = gson.fromJson(response, TransaksiObatResponse.class);
-                TransaksiObatModels transaksiObatModels = transaksiObatResponse.getTransaksiObatModelsList().get(0);
+                TransaksiObatResponse2 transaksiObatResponse2 = gson.fromJson(response, TransaksiObatResponse2.class);
+                TransaksiObatModels transaksiObatModels = transaksiObatResponse2.getTransaksiObatModelsList().get(0);
 
                 et_namaPembeliTransaksi.setText(transaksiObatModels.getNamaPembeli());
                 et_nomorHP_pembeli.setText(transaksiObatModels.getNomorHpPembeli());
@@ -155,7 +157,7 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
                 et_umurPembeli.setText(transaksiObatModels.getUmurPembeli());
                 et_jumlahBeliTransaksi.setText(transaksiObatModels.getJumlahBeli().toString());
 
-                Toast.makeText(AddEditTransaksiObatActivity.this, transaksiObatResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddEditTransaksiObatActivity.this, transaksiObatResponse2.getMessage(), Toast.LENGTH_SHORT).show();
 
                 setLoading(false);
             }

@@ -3,6 +3,7 @@ package com.kelompok_3_kelas_a.project_kelompok_uas_pbp.adapters;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -108,7 +110,10 @@ public class TransaksiObatAdapter extends RecyclerView.Adapter<TransaksiObatAdap
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context, AddEditTransaksiObatActivity.class);
-                i.putExtra("id", transaksiObatModels.getIdTransaksiObat());
+                i.putExtra("id", transaksiObatModels.getIdObat());
+                i.putExtra("lemparId", 1);
+                Log.v("jona", String.valueOf(transaksiObatModels.getIdTransaksiObat()));
+                i.putExtra("idTransaksi", transaksiObatModels.getIdTransaksiObat());
 
                 if (context instanceof TransaksiObatActivity)
                     ((TransaksiObatActivity) context).startActivityForResult(i,
