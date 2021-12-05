@@ -1,11 +1,15 @@
 package com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class TransaksiObatModels {
 
-    private Long idTransaksiObat;
+    @SerializedName("id")
+    private Integer idTransaksiObat;
     private ObatModels obatModels;
     private String namaPembeli, nomorHpPembeli, alamatPembeli, umurPembeli;
-    private Integer jumlahBeli, idObat;
+    private Integer jumlahBeli;
+    private Integer idObat;
     private double totalBayarObat;
 
 //    public TransaksiObatModels(String namaPembeli, String nomorHpPembeli, String alamatPembeli,
@@ -24,7 +28,7 @@ public class TransaksiObatModels {
         this.alamatPembeli = alamatPembeli;
         this.umurPembeli = umurPembeli;
         this.jumlahBeli = jumlahBeli;
-        this.idObat = idObat;
+        this.setIdObat(idObat);
     }
 
     public TransaksiObatModels(String namaPembeli, String nomorHpPembeli, String alamatPembeli,
@@ -34,15 +38,15 @@ public class TransaksiObatModels {
         this.alamatPembeli = alamatPembeli;
         this.umurPembeli = umurPembeli;
         this.jumlahBeli = jumlahBeli;
-        this.idObat = idObat;
+        this.setIdObat(idObat);
         this.totalBayarObat = totalBayarObat;
     }
 
-    public Long getIdTransaksiObat() {
+    public Integer getIdTransaksiObat() {
         return idTransaksiObat;
     }
 
-    public void setIdTransaksiObat(Long idTransaksiObat) {
+    public void setIdTransaksiObat(Integer idTransaksiObat) {
         this.idTransaksiObat = idTransaksiObat;
     }
 
@@ -100,5 +104,13 @@ public class TransaksiObatModels {
 
     public void setObatModels(ObatModels obatModels) {
         this.obatModels = obatModels;
+    }
+
+    public Integer getIdObat() {
+        return idObat;
+    }
+
+    public void setIdObat(Integer idObat) {
+        this.idObat = idObat;
     }
 }
