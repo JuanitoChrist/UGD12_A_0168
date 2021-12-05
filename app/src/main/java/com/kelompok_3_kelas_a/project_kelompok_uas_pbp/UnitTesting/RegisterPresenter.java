@@ -48,6 +48,9 @@ public class RegisterPresenter {
         } else if(view.getJenisKelamin().isEmpty()){
             view.showJenisKelaminError("Jenis Kelamin tidak boleh kosong");
             return;
+        } else if(view.getPassword().length() > 10){
+            view.showPasswordError("Password maksimal 10 huruf");
+            return;
         } else if(view.getPassword().isEmpty()){
             view.showPasswordError("Password tidak boleh kosong");
             return;

@@ -1,48 +1,45 @@
 package com.kelompok_3_kelas_a.project_kelompok_uas_pbp.email;
 
 
-import androidx.test.espresso.DataInteraction;
-import androidx.test.espresso.ViewInteraction;
-import androidx.test.filters.LargeTest;
-import androidx.test.rule.ActivityTestRule;
-import androidx.test.runner.AndroidJUnit4;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
 
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 
-import static androidx.test.InstrumentationRegistry.getInstrumentation;
-import static androidx.test.espresso.Espresso.onData;
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.pressBack;
-import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
-import static androidx.test.espresso.action.ViewActions.*;
-import static androidx.test.espresso.assertion.ViewAssertions.*;
-import static androidx.test.espresso.matcher.ViewMatchers.*;
+import androidx.test.espresso.ViewInteraction;
+import androidx.test.filters.LargeTest;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.is;
-
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class RegisterActivityTest4 {
+public class RegisterActivityTest0168 {
 
     @Rule
     public ActivityTestRule<RegisterActivity> mActivityTestRule = new ActivityTestRule<>(RegisterActivity.class);
 
     @Test
-    public void registerActivityTest4() {
+    public void registerActivityTest3() {
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.btn_save), withText("simpan"),
                         childAtPosition(
@@ -50,7 +47,7 @@ public class RegisterActivityTest4 {
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
-                                0),
+                                1),
                         isDisplayed()));
         materialButton.perform(click());
 
@@ -60,17 +57,17 @@ public class RegisterActivityTest4 {
                                 childAtPosition(
                                         withId(R.id.layout_nama),
                                         0),
-                                1)));
-        textInputEditText.perform(scrollTo(), replaceText("a"), closeSoftKeyboard());
+                                0)));
+        textInputEditText.perform(scrollTo(), click());
 
         ViewInteraction textInputEditText2 = onView(
-                allOf(withId(R.id.et_nama), withText("a"),
+                allOf(withId(R.id.et_nama),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.layout_nama),
                                         0),
-                                1)));
-        textInputEditText2.perform(scrollTo(), click());
+                                0)));
+        textInputEditText2.perform(scrollTo(), replaceText("juan"), closeSoftKeyboard());
 
         ViewInteraction materialButton2 = onView(
                 allOf(withId(R.id.btn_save), withText("simpan"),
@@ -78,7 +75,8 @@ public class RegisterActivityTest4 {
                                 allOf(withId(R.id.ll_button),
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
-                                                1)), 0),
+                                                1)),
+                                1),
                         isDisplayed()));
         materialButton2.perform(click());
 
@@ -88,7 +86,7 @@ public class RegisterActivityTest4 {
                                 childAtPosition(
                                         withId(R.id.layout_umur),
                                         0),
-                                1)));
+                                0)));
         textInputEditText3.perform(scrollTo(), click());
 
         ViewInteraction textInputEditText4 = onView(
@@ -97,7 +95,7 @@ public class RegisterActivityTest4 {
                                 childAtPosition(
                                         withId(R.id.layout_umur),
                                         0),
-                                1)));
+                                0)));
         textInputEditText4.perform(scrollTo(), replaceText("123"), closeSoftKeyboard());
 
         ViewInteraction materialButton3 = onView(
@@ -107,7 +105,7 @@ public class RegisterActivityTest4 {
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
-                                0),
+                                1),
                         isDisplayed()));
         materialButton3.perform(click());
 
@@ -117,7 +115,7 @@ public class RegisterActivityTest4 {
                                 childAtPosition(
                                         withId(R.id.layout_umur),
                                         0),
-                                1)));
+                                0)));
         textInputEditText5.perform(scrollTo(), replaceText("12"));
 
         ViewInteraction textInputEditText6 = onView(
@@ -126,7 +124,7 @@ public class RegisterActivityTest4 {
                                 childAtPosition(
                                         withId(R.id.layout_umur),
                                         0),
-                                1),
+                                0),
                         isDisplayed()));
         textInputEditText6.perform(closeSoftKeyboard());
 
@@ -137,7 +135,7 @@ public class RegisterActivityTest4 {
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
-                                0),
+                                1),
                         isDisplayed()));
         materialButton4.perform(click());
 
@@ -147,8 +145,8 @@ public class RegisterActivityTest4 {
                                 childAtPosition(
                                         withId(R.id.layout_email),
                                         0),
-                                1)));
-        textInputEditText7.perform(scrollTo(), replaceText("juan"), closeSoftKeyboard());
+                                0)));
+        textInputEditText7.perform(scrollTo(), replaceText("juan.makan.mendoan@gmail.com"), closeSoftKeyboard());
 
         ViewInteraction materialButton5 = onView(
                 allOf(withId(R.id.btn_save), withText("simpan"),
@@ -157,7 +155,7 @@ public class RegisterActivityTest4 {
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
-                                0),
+                                1),
                         isDisplayed()));
         materialButton5.perform(click());
 
@@ -167,8 +165,8 @@ public class RegisterActivityTest4 {
                                 childAtPosition(
                                         withId(R.id.layout_jenis_kelamin),
                                         0),
-                                1)));
-        textInputEditText8.perform(scrollTo(), replaceText("laki-laki"), closeSoftKeyboard());
+                                0)));
+        textInputEditText8.perform(scrollTo(), replaceText("Laki-laki"), closeSoftKeyboard());
 
         ViewInteraction materialButton6 = onView(
                 allOf(withId(R.id.btn_save), withText("simpan"),
@@ -177,7 +175,7 @@ public class RegisterActivityTest4 {
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
-                                0),
+                                1),
                         isDisplayed()));
         materialButton6.perform(click());
 
@@ -187,8 +185,8 @@ public class RegisterActivityTest4 {
                                 childAtPosition(
                                         withId(R.id.layout_password),
                                         0),
-                                1)));
-        textInputEditText9.perform(scrollTo(), replaceText("juanito123"), closeSoftKeyboard());
+                                0)));
+        textInputEditText9.perform(scrollTo(), replaceText("123"), closeSoftKeyboard());
 
         ViewInteraction materialButton7 = onView(
                 allOf(withId(R.id.btn_save), withText("simpan"),
@@ -197,28 +195,9 @@ public class RegisterActivityTest4 {
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
-                                0),
-                        isDisplayed()));
-        materialButton7.perform(click());
-
-        ViewInteraction textInputEditText10 = onView(
-                allOf(withId(R.id.et_email), withText("juan"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.layout_email),
-                                        0),
-                                1)));
-        textInputEditText10.perform(scrollTo(), replaceText("juan.makan.mendoan@gmail.com"));
-
-        ViewInteraction textInputEditText11 = onView(
-                allOf(withId(R.id.et_email), withText("juan.makan.mendoan@gmail.com"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.layout_email),
-                                        0),
                                 1),
                         isDisplayed()));
-        textInputEditText11.perform(closeSoftKeyboard());
+        materialButton7.perform(click());
 
         ViewInteraction materialButton8 = onView(
                 allOf(withId(R.id.btn_save), withText("simpan"),
@@ -227,7 +206,7 @@ public class RegisterActivityTest4 {
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
-                                0),
+                                1),
                         isDisplayed()));
         materialButton8.perform(click());
     }
