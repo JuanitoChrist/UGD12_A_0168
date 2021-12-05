@@ -32,6 +32,7 @@ import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.PendaftaranApi;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PendaftaranModels;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PendaftaranResponse;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PendaftaranResponse2;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaModels;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.preferences.userPreferences;
 
@@ -62,9 +63,9 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
         setTitle(" ");
         queue = Volley.newRequestQueue(this);
         et_namaPendaftar = findViewById(R.id.et_namaPendaftar);
-        et_tanggalLahir_Pendaftar = findViewById(R.id.et_nomor_hp_pendaftar);
+        et_tanggalLahir_Pendaftar = findViewById(R.id.et_tanggalLahir_Pendaftar);
         et_nomor_hp_pendaftar = findViewById(R.id.et_nomor_hp_pendaftar);
-        et_tanggalPeriksa_pendaftar = findViewById(R.id.et_tanggalPeriksa_pendaftar);
+//        et_tanggalPeriksa_pendaftar = findViewById(R.id.et_tanggalPeriksa_pendaftar);
         ed_keluhan_pendaftar = findViewById(R.id.ed_keluhan_pendaftar);
         ed_jenisKelamin_pendaftar = findViewById(R.id.ed_jenisKelamin_pendaftar);
         layoutLoading = findViewById(R.id.layout_loading);
@@ -128,18 +129,18 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 Gson gson = new Gson();
 
-                PendaftaranResponse pendaftaranResponse = gson.fromJson(response, PendaftaranResponse.class);
-                PendaftaranModels pendaftaranModels = pendaftaranResponse.getPendaftaranModelsList().get(0);
+                PendaftaranResponse2 pendaftaranResponse2 = gson.fromJson(response, PendaftaranResponse2.class);
+                PendaftaranModels pendaftaranModels = pendaftaranResponse2.getPendaftaranModelsList().get(0);
 
                 et_namaPendaftar.setText(pendaftaranModels.getNamaPendaftar());
                 et_tanggalLahir_Pendaftar.setText(pendaftaranModels.getTanggalLahirPendaftar());
                 et_nomor_hp_pendaftar.setText(pendaftaranModels.getNomorHPPendaftar());
-                et_tanggalPeriksa_pendaftar.setText(pendaftaranModels.getTanggalPeriksaPendaftar());
+//                et_tanggalPeriksa_pendaftar.setText(pendaftaranModels.getTanggalPeriksaPendaftar());
 
                 ed_keluhan_pendaftar.setText(pendaftaranModels.getKeluhanPendaftar(), false);
                 ed_jenisKelamin_pendaftar.setText(pendaftaranModels.getJenisKelaminPendaftar(), false);
 
-                Toast.makeText(AddEditPendaftaranActivity.this, pendaftaranResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddEditPendaftaranActivity.this, pendaftaranResponse2.getMessage(), Toast.LENGTH_SHORT).show();
 
                 setLoading(false);
             }
@@ -174,7 +175,7 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
                     et_namaPendaftar.getText().toString(),
                     et_tanggalLahir_Pendaftar.getText().toString(),
                     et_nomor_hp_pendaftar.getText().toString(),
-                    et_tanggalPeriksa_pendaftar.getText().toString(),
+//                    et_tanggalPeriksa_pendaftar.getText().toString(),
                     ed_keluhan_pendaftar.getText().toString(),
                     ed_jenisKelamin_pendaftar.getText().toString());
 
@@ -240,7 +241,7 @@ public class AddEditPendaftaranActivity extends AppCompatActivity {
                     et_namaPendaftar.getText().toString(),
                     et_tanggalLahir_Pendaftar.getText().toString(),
                     et_nomor_hp_pendaftar.getText().toString(),
-                    et_tanggalPeriksa_pendaftar.getText().toString(),
+//                    et_tanggalPeriksa_pendaftar.getText().toString(),
                     ed_keluhan_pendaftar.getText().toString(),
                     ed_jenisKelamin_pendaftar.getText().toString());
 

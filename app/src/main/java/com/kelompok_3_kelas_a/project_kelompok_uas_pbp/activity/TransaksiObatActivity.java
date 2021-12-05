@@ -33,6 +33,7 @@ import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.PendaftaranApi;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.TransaksiObatApi;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaModels;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.TransaksiObatResponse;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.TransaksiObatResponse2;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.preferences.userPreferences;
 
 import org.json.JSONObject;
@@ -117,13 +118,13 @@ public class TransaksiObatActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                TransaksiObatResponse transaksiObatResponse = gson.fromJson(response, TransaksiObatResponse.class);
+                TransaksiObatResponse2 transaksiObatResponse2 = gson.fromJson(response, TransaksiObatResponse2.class);
 
-                adapter.setTransaksiObatModelsList(transaksiObatResponse.getTransaksiObatModelsList());
+                adapter.setTransaksiObatModelsList(transaksiObatResponse2.getTransaksiObatModelsList());
                 adapter.getFilter().filter(sv_transaksiObat.getQuery());
 
                 Toast.makeText(TransaksiObatActivity.this, "sini", Toast.LENGTH_SHORT).show();
-                Toast.makeText(TransaksiObatActivity.this, transaksiObatResponse.getMessage(),
+                Toast.makeText(TransaksiObatActivity.this, transaksiObatResponse2.getMessage(),
                         Toast.LENGTH_SHORT).show();
 
                 sr_transaksiObat.setRefreshing(false);

@@ -55,7 +55,7 @@ public class TransaksiObatAdapter extends RecyclerView.Adapter<TransaksiObatAdap
             tv_hargaTransaksiObat = itemView.findViewById(R.id.tv_hargaTransaksiObat);
             tv_totalBeliObat = itemView.findViewById(R.id.tv_totalBeliObat);
             tv_totalBiayaTransaksiObat = itemView.findViewById(R.id.tv_totalBiayaTransaksiObat);
-            iv_gambarTransaksiObat = itemView.findViewById(R.id.iv_gambarTransaksiObat);
+//            iv_gambarTransaksiObat = itemView.findViewById(R.id.iv_gambarTransaksiObat);
             cv_transaksiObat = itemView.findViewById(R.id.cv_transaksiObat);
             btn_deleteTransaksiObat = itemView.findViewById(R.id.btn_deleteTransaksiObat);
         }
@@ -77,15 +77,15 @@ public class TransaksiObatAdapter extends RecyclerView.Adapter<TransaksiObatAdap
         holder.tv_namaTransaksiObat.setText(transaksiObatModels.getNamaPembeli());
         holder.tv_totalBeliObat.setText("Total Beli: " + transaksiObatModels.getJumlahBeli());
 
-        DecimalFormat rupiahFormat = (DecimalFormat) DecimalFormat
-                .getCurrencyInstance(new Locale("in", "ID"));
-        holder.tv_hargaTransaksiObat.setText(rupiahFormat.format(transaksiObatModels.getObatModels().getHargaObat()));
-        holder.tv_totalBiayaTransaksiObat.setText(rupiahFormat.format(transaksiObatModels.getTotalBayarObat()));
+//        DecimalFormat rupiahFormat = (DecimalFormat) DecimalFormat
+//                .getCurrencyInstance(new Locale("in", "ID"));
+//        holder.tv_hargaTransaksiObat.setText(String.valueOf(transaksiObatModels.getObatModels().getHargaObat()));
+        holder.tv_totalBiayaTransaksiObat.setText(String.valueOf(transaksiObatModels.getTotalBayarObat()));
 
-        Glide.with(context)
-                .load(transaksiObatModels.getObatModels().getGambarObat())
-                .placeholder(R.drawable.no_image)
-                .into(holder.iv_gambarTransaksiObat);
+//        Glide.with(context)
+//                .load(transaksiObatModels.getObatModels().getGambarObat())
+//                .placeholder(R.drawable.no_image)
+//                .into(holder.iv_gambarTransaksiObat);
 
         holder.btn_deleteTransaksiObat.setOnClickListener(new View.OnClickListener() {
             @Override

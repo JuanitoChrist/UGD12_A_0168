@@ -91,7 +91,7 @@ public class TransaksiObatModels {
     }
 
     public double getTotalBayarObat() {
-        return totalBayarObat = this.jumlahBeli * this.obatModels.getHargaObat();
+        return totalBayarObat;
     }
 
     public void setTotalBayarObat(double totalBayarObat) {

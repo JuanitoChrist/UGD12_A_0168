@@ -58,7 +58,7 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
     private userPreferences userPreferences;
     private PenggunaModels penggunaModels;
     private long idUserPref;
-
+    private double total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,6 +184,7 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
 
     private void createTransaksiObat(){
         setLoading(true);
+        total = Double.parseDouble(tv_hargaObatTransaksi.getText().toString()) * Double.parseDouble(et_jumlahBeliTransaksi.getText().toString());
 
         try{
             TransaksiObatModels transaksiObatModels = new TransaksiObatModels(
@@ -192,7 +193,7 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
                     et_alamatPembeli.getText().toString(),
                     et_umurPembeli.getText().toString(),
                     Integer.parseInt(et_jumlahBeliTransaksi.getText().toString()),
-                    obatDipilih.getIdObat());
+                    obatDipilih.getIdObat(), total);
 
             StringRequest stringRequest = new StringRequest(POST, TransaksiObatApi.ADD_URL + idUserPref, new Response.Listener<String>() {
                 @Override

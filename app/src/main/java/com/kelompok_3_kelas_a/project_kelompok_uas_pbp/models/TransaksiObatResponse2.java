@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class TransaksiObatResponse {
+public class TransaksiObatResponse2 {
     private String message;
-    @SerializedName("transaksiobat")
+    @SerializedName("data")
     private List<TransaksiObatModels> transaksiObatModelsList;
 
     public String getMessage() {

@@ -5,6 +5,7 @@ import static com.android.volley.Request.Method.GET;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -30,6 +31,9 @@ import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.R;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.adapters.PendaftaranAdapter;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.api.PendaftaranApi;
 import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PendaftaranResponse;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PendaftaranResponse2;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.models.PenggunaModels;
+import com.kelompok_3_kelas_a.project_kelompok_uas_pbp.preferences.userPreferences;
 
 import org.json.JSONObject;
 
@@ -46,6 +50,9 @@ public class PendaftaranActivity extends AppCompatActivity {
     private SearchView sv_Pendaftaran;
     private LinearLayout layoutLoading;
     private RequestQueue queue;
+    private userPreferences userPreferences;
+    private PenggunaModels penggunaModels;
+    private long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +64,10 @@ public class PendaftaranActivity extends AppCompatActivity {
         layoutLoading = findViewById(R.id.layout_loading);
         sr_Pendaftaran = findViewById(R.id.sr_Pendaftaran);
         sv_Pendaftaran = findViewById(R.id.sv_Pendaftaran);
+
+        userPreferences = new userPreferences(PendaftaranActivity.this);
+        penggunaModels = userPreferences.getPenggunaModels();
+        id = penggunaModels.getId();
 
         sr_Pendaftaran.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -89,6 +100,7 @@ public class PendaftaranActivity extends AppCompatActivity {
 
         RecyclerView rvPendaftaran = findViewById(R.id.rv_Pendaftaran);
         adapter = new PendaftaranAdapter(new ArrayList<>(), this);
+        rvPendaftaran.setLayoutManager(new LinearLayoutManager(PendaftaranActivity.this, LinearLayoutManager.VERTICAL, false));
         rvPendaftaran.setAdapter(adapter);
 
         getAllProduk();
@@ -110,17 +122,17 @@ public class PendaftaranActivity extends AppCompatActivity {
 
     private void getAllProduk() {
         sr_Pendaftaran.setRefreshing(true);
-        StringRequest stringRequest = new StringRequest(GET, PendaftaranApi.GET_ALL_URL,
+        StringRequest stringRequest = new StringRequest(GET, PendaftaranApi.GET_ALL_URL + id,
                 new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
-                PendaftaranResponse pendaftaranResponse = gson.fromJson(response, PendaftaranResponse.class);
+                PendaftaranResponse2 pendaftaranResponse2 = gson.fromJson(response, PendaftaranResponse2.class);
 
-                adapter.setPendaftaranModelsList(pendaftaranResponse.getPendaftaranModelsList());
+                adapter.setPendaftaranModelsList(pendaftaranResponse2.getPendaftaranModelsList());
                 adapter.getFilter().filter(sv_Pendaftaran.getQuery());
 
-                Toast.makeText(PendaftaranActivity.this, pendaftaranResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(PendaftaranActivity.this, pendaftaranResponse2.getMessage(), Toast.LENGTH_SHORT).show();
                 sr_Pendaftaran.setRefreshing(false);
             }
         }, new Response.ErrorListener() {

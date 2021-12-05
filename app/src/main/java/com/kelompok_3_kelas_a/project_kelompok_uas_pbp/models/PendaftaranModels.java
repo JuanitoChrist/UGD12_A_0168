@@ -7,12 +7,12 @@ public class PendaftaranModels {
             nomorHPPendaftar, tanggalPeriksaPendaftar, jenisKelaminPendaftar,
             keluhanPendaftar;
 
-    public PendaftaranModels(String namaPendaftar, String tanggalLahirPendaftar, String nomorHPPendaftar, String tanggalPeriksaPendaftar,
+    public PendaftaranModels(String namaPendaftar, String tanggalLahirPendaftar, String nomorHPPendaftar,
                              String jenisKelaminPendaftar, String keluhanPendaftar) {
         this.namaPendaftar = namaPendaftar;
         this.tanggalLahirPendaftar = tanggalLahirPendaftar;
         this.nomorHPPendaftar = nomorHPPendaftar;
-        this.tanggalPeriksaPendaftar = tanggalPeriksaPendaftar;
+//        this.tanggalPeriksaPendaftar = tanggalPeriksaPendaftar;
         this.jenisKelaminPendaftar = jenisKelaminPendaftar;
         this.keluhanPendaftar = keluhanPendaftar;
     }

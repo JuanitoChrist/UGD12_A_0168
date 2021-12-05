@@ -49,7 +49,6 @@ public class PendaftaranAdapter extends RecyclerView.Adapter<PendaftaranAdapter.
             tv_nama_pendaftar = itemView.findViewById(R.id.tv_nama_pendaftar);
             tv_tanggalLahir_pendaftar = itemView.findViewById(R.id.tv_tanggalLahir_pendaftar);
             tv_nomorHp_pendaftar = itemView.findViewById(R.id.tv_nomorHp_pendaftar);
-            tv_tanggalPeriksa_pendaftar = itemView.findViewById(R.id.tv_tanggalPeriksa_pendaftar);
             tv_jenisKelamin_pendaftar = itemView.findViewById(R.id.tv_jenisKelamin_pendaftar);
             tv_keluhan_pendaftar = itemView.findViewById(R.id.tv_keluhan_pendaftar);
 
@@ -74,7 +73,6 @@ public class PendaftaranAdapter extends RecyclerView.Adapter<PendaftaranAdapter.
         holder.tv_nama_pendaftar.setText(pendaftaranModels.getNamaPendaftar());
         holder.tv_tanggalLahir_pendaftar.setText(pendaftaranModels.getTanggalLahirPendaftar());
         holder.tv_nomorHp_pendaftar.setText(pendaftaranModels.getNomorHPPendaftar());
-        holder.tv_tanggalPeriksa_pendaftar.setText(pendaftaranModels.getTanggalPeriksaPendaftar());
         holder.tv_jenisKelamin_pendaftar.setText(pendaftaranModels.getJenisKelaminPendaftar());
         holder.tv_keluhan_pendaftar.setText(pendaftaranModels.getKeluhanPendaftar());
 
