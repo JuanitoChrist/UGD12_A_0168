@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class TransaksiObatModels {
 
     @SerializedName("id")
-    private Long idTransaksiObat;
+    private Integer idTransaksiObat;
     private ObatModels obatModels;
     private String namaPembeli, nomorHpPembeli, alamatPembeli, umurPembeli;
     private Integer jumlahBeli;
@@ -42,11 +42,11 @@ public class TransaksiObatModels {
         this.totalBayarObat = totalBayarObat;
     }
 
-    public Long getIdTransaksiObat() {
+    public Integer getIdTransaksiObat() {
         return idTransaksiObat;
     }
 
-    public void setIdTransaksiObat(Long idTransaksiObat) {
+    public void setIdTransaksiObat(Integer idTransaksiObat) {
         this.idTransaksiObat = idTransaksiObat;
     }
 

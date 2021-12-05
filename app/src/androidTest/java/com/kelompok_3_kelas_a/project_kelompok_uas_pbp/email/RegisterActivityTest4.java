@@ -50,7 +50,7 @@ public class RegisterActivityTest4 {
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
-                                1),
+                                0),
                         isDisplayed()));
         materialButton.perform(click());
 
@@ -78,8 +78,7 @@ public class RegisterActivityTest4 {
                                 allOf(withId(R.id.ll_button),
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
-                                                1)),
-                                1),
+                                                1)), 0),
                         isDisplayed()));
         materialButton2.perform(click());
 
@@ -108,7 +107,7 @@ public class RegisterActivityTest4 {
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
-                                1),
+                                0),
                         isDisplayed()));
         materialButton3.perform(click());
 
@@ -138,7 +137,7 @@ public class RegisterActivityTest4 {
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
-                                1),
+                                0),
                         isDisplayed()));
         materialButton4.perform(click());
 
@@ -158,7 +157,7 @@ public class RegisterActivityTest4 {
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
-                                1),
+                                0),
                         isDisplayed()));
         materialButton5.perform(click());
 
@@ -178,7 +177,7 @@ public class RegisterActivityTest4 {
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
-                                1),
+                                0),
                         isDisplayed()));
         materialButton6.perform(click());
 
@@ -198,7 +197,7 @@ public class RegisterActivityTest4 {
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
-                                1),
+                                0),
                         isDisplayed()));
         materialButton7.perform(click());
 
@@ -228,7 +227,7 @@ public class RegisterActivityTest4 {
                                         childAtPosition(
                                                 withClassName(is("androidx.constraintlayout.widget.ConstraintLayout")),
                                                 1)),
-                                1),
+                                0),
                         isDisplayed()));
         materialButton8.perform(click());
     }

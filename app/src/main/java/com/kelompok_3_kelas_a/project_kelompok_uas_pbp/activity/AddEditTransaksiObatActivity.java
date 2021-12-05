@@ -143,21 +143,21 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
     private void getTransaksiObatById(int id){
         setLoading(true);
 
-        StringRequest stringRequest = new StringRequest(GET, TransaksiObatApi.GET_BY_ID_URL + idUserPref + "/" + 0, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(GET, TransaksiObatApi.GET_BY_ID_URL + id, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
 
-                TransaksiObatResponse2 transaksiObatResponse2 = gson.fromJson(response, TransaksiObatResponse2.class);
-                TransaksiObatModels transaksiObatModels = transaksiObatResponse2.getTransaksiObatModelsList().get(0);
+//                TransaksiObatResponse2 transaksiObatResponse2 = gson.fromJson(response, TransaksiObatResponse2.class);
+                TransaksiObatModels transaksiObatModels = gson.fromJson(response, TransaksiObatResponse2.class).getTransaksiObatModelsList().get(0);
 
                 et_namaPembeliTransaksi.setText(transaksiObatModels.getNamaPembeli());
                 et_nomorHP_pembeli.setText(transaksiObatModels.getNomorHpPembeli());
                 et_alamatPembeli.setText(transaksiObatModels.getAlamatPembeli());
                 et_umurPembeli.setText(transaksiObatModels.getUmurPembeli());
-                et_jumlahBeliTransaksi.setText(transaksiObatModels.getJumlahBeli().toString());
+                et_jumlahBeliTransaksi.setText(String.valueOf(transaksiObatModels.getJumlahBeli()));
 
-                Toast.makeText(AddEditTransaksiObatActivity.this, transaksiObatResponse2.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddEditTransaksiObatActivity.this,"Transaksi Berhasil Ambil Data", Toast.LENGTH_SHORT).show();
 
                 setLoading(false);
             }
