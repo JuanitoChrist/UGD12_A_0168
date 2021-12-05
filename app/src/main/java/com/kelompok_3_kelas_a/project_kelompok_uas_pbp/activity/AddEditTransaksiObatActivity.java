@@ -88,13 +88,13 @@ public class AddEditTransaksiObatActivity extends AppCompatActivity {
         idUserPref = penggunaModels.getId();
 
         setObatDipilih();
-//        Glide.with(AddEditTransaksiObatActivity.this)
-//                .load(obatDipilih.getGambarObat())
-//                .centerCrop()
-//                .into(iv_gambarTransaksiObat);
+        Glide.with(AddEditTransaksiObatActivity.this)
+                .load(obatDipilih.getGambarObat())
+                .centerCrop()
+                .into(iv_gambarTransaksiObat);
 
-//        tv_namaObatTransaksi.setText(obatDipilih.getNamaObat());
-//        tv_hargaObatTransaksi.setText(obatDipilih.getHargaObat().toString());
+        tv_namaObatTransaksi.setText(obatDipilih.getNamaObat());
+        tv_hargaObatTransaksi.setText(obatDipilih.getHargaObat().toString());
 
         Button btnCancel = findViewById(R.id.btn_cancelTransaksiObat);
         btnCancel.setOnClickListener(new View.OnClickListener() {
